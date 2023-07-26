@@ -9,7 +9,7 @@ const GptForm = () => {
         e.preventDefault();
         console.log(message);
         setLoading(true);
-        let response = await fetch(`http://hue2m-back:3000/gpt/?message=${message}`);
+        let response = await fetch(`http://localhost:3006/gpt/?message=${message}`);
         let data = await response.text();
         console.log(data);
         setResponse(data);
