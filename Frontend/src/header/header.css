@@ -1,0 +1,39 @@
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: green;
+    height: 10vh;
+    width: 100%;
+    justify-content: space-between;
+}
+.logo {
+    height: 100%;
+    padding: 10px;
+
+}
+header h1 {
+    text-align: center;
+    margin: auto;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 1rem;
+    text-align: right;
+    padding: 10px;
+}
+
+img {
+    height: 100%;
+}
+.logo img {
+    transition: 1s;
+    border-radius: 25%;
+}
+.logo img:hover {
+    border-radius: 50%;
+    transition: 1s;
+}

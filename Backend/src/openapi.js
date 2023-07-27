@@ -12,13 +12,13 @@ const openai = new OpenAIApi(configuration);
 
 // Request model variables
 const models = ["gpt-4", "gpt-3.5-turbo"];
-
+const context = "Eres un nutricionista experto en la nutricion y la alimentacion.";
 
 
 
 async function GptCall(message) {
     const messages = [
-        {"role": "system", "content": "Eres el mejor desarollador y conoces todos los sistemas de programacion. Respondes en el idioma en el que te preguntan, demanera clara y concisa"},
+        {"role": "system", "content": context},
         {"role": "user", "content": message},
     ];
     try {
