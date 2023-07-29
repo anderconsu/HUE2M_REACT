@@ -122,7 +122,7 @@ const FormIngredients = () => {
                 </ul>        
             )}
 
-            {edamamData === 555 ? <p>Hay un error al cotejar uno o varios ingredientes</p> : null}
+            {edamamData === 555 ? <p>Hay un error al cotejar uno o varios ingredientes.</p> : null}
             
         </div>
     );
