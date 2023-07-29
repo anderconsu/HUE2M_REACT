@@ -33,7 +33,7 @@ const FormIngredients = () => {
                 ingEnglish = {
                     ingrediente: ingValue,
                     cantidad: parseInt(e.target.cantidad.value),
-                    unidad: e.target.unidad.value,
+                    unidad: e.target.unidad.value === "units" ? "" : e.target.unidad.value,
                 };
             } else {
                 // If the translation is not successful an entire object is passed to gpt to translate
@@ -75,7 +75,7 @@ const FormIngredients = () => {
     return (
         <div className="IngredientList">
             <form onSubmit={addToList}>
-                <h2>formulario</h2>
+                <h2>Añade la comida que has consumido en un dia completo.</h2>
                 <input
                     autoFocus
                     name="ingredientes"
