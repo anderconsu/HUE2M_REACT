@@ -25,7 +25,7 @@ const FormIngredients = () => {
         // The value of ingrediente is translated and an alternative object is created and pushed to the alternative array to be compatible with edamam
         try {
             let ingEnglish = await fetch(
-                `http://localhost:3006/translate/?message=${obj.ingrediente}`
+                `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
             );
             if (ingEnglish) {
                 // If the translation is successful with the google translation in the backend
@@ -38,7 +38,7 @@ const FormIngredients = () => {
             } else {
                 // If the translation is not successful an entire object is passed to gpt to translate
                 ingEnglish = await fetch(
-                    `http://localhost:3006/translategpt/?message=${obj}`
+                    `http://localhost:3006/api/translategpt/?message=${obj}`
                 );
                 let data = await ingEnglish.text();
                 ingEnglish = data;
@@ -51,7 +51,7 @@ const FormIngredients = () => {
     };
     const getEdamamData = async () => {
         let ingredients = [];
-        const url = new URL(`http://localhost:3006/edamamdata/`);
+        const url = new URL(`http://localhost:3006/api/edamamdata/`);
         ingListEnglish.forEach((ing) => {
             ingredients.push(
                 `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
