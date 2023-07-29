@@ -3,3 +3,10 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+main {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
