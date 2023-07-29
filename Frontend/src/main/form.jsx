@@ -49,6 +49,8 @@ const FormIngredients = () => {
             console.log(error);
         }
     };
+ 
+    // Get data from edamam
     const getEdamamData = async () => {
         let ingredients = [];
         const url = new URL(`http://localhost:3006/api/edamamdata/`);
@@ -65,6 +67,11 @@ const FormIngredients = () => {
         console.log(data);
         console.log(data.totalNutrients);
     };
+    const delFromList = (index) => {
+        const lista = [...ingList];
+        lista.splice(index, 1);
+        setIngList(lista);
+    }
     return (
         <div className="IngredientList">
             <form onSubmit={addToList}>
@@ -104,6 +111,7 @@ const FormIngredients = () => {
                                 ? "Plato(s)"
                                 : ing.unidad
                         }`}
+                        <button className="eliminarButton" onClick={ () => delFromList(index)}>Eliminar</button>
                     </li>
                 ))}
             </ul>
