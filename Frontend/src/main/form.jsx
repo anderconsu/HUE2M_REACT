@@ -62,6 +62,7 @@ const FormIngredients = () => {
         let response = await fetch(url);
         let data = await response.json();
         setEdamamData(data);
+        console.log(data);
         console.log(data.totalNutrients);
     };
     return (
@@ -118,8 +119,11 @@ const FormIngredients = () => {
                             </li>
                         )
                     )}
-                </ul>
+                </ul>        
             )}
+
+            {edamamData === 555 ? <p>Hay un error al cotejar uno o varios ingredientes</p> : null}
+            
         </div>
     );
 };
