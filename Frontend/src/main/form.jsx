@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-//import { translate } from '@vitalets/google-translate-api';
 
 const FormIngredients = () => {
+
+    // TODO: get ingList from local storage
     const [ingList, setIngList] = useState([]);
     const [ingListEnglish, setIngListEnglish] = useState([]);
     const [edamamData, setEdamamData] = useState({});
@@ -12,7 +13,7 @@ const FormIngredients = () => {
         e.preventDefault();
         const lista = [...ingList];
         const listaEnglish = [...ingListEnglish];
-
+        
         // An object is created to store the ingredient, the quantity and the unit. Then is pushed to the array and setted to the state
         const obj = {
             ingrediente: e.target.ingredientes.value,
@@ -21,42 +22,42 @@ const FormIngredients = () => {
         };
         lista.push(obj);
         setIngList(lista);
-
+        
         // The value of ingrediente is translated and an alternative object is created and pushed to the alternative array to be compatible with edamam
         try {
             let ingEnglish = await fetch(
                 `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
-            );
-            if (ingEnglish) {
-                // If the translation is successful with the google translation in the backend
-                let ingValue = await ingEnglish.text();
-                ingEnglish = {
-                    ingrediente: ingValue,
-                    cantidad: parseInt(e.target.cantidad.value),
-                    unidad: e.target.unidad.value === "units" ? "" : e.target.unidad.value,
-                };
-            } else {
-                // If the translation is not successful an entire object is passed to gpt to translate
-                ingEnglish = await fetch(
-                    `http://localhost:3006/api/translategpt/?message=${obj}`
                 );
-                let data = await ingEnglish.text();
-                ingEnglish = data;
-            }
-            listaEnglish.push(ingEnglish);
-            setIngListEnglish(listaEnglish);
-        } catch (error) {
-            console.log(error);
-        }
-    };
- 
-    // Get data from edamam
-    const getEdamamData = async () => {
-        let ingredients = [];
-        const url = new URL(`http://localhost:3006/api/edamamdata/`);
-        ingListEnglish.forEach((ing) => {
-            ingredients.push(
-                `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
+                if (ingEnglish) {
+                    // If the translation is successful with the google translation in the backend
+                    let ingValue = await ingEnglish.text();
+                    ingEnglish = {
+                        ingrediente: ingValue,
+                        cantidad: parseInt(e.target.cantidad.value),
+                        unidad: e.target.unidad.value === "units" ? "" : e.target.unidad.value,
+                    };
+                } else {
+                    // If the translation is not successful an entire object is passed to gpt to translate
+                    ingEnglish = await fetch(
+                        `http://localhost:3006/api/translategpt/?message=${obj}`
+                        );
+                        let data = await ingEnglish.text();
+                        ingEnglish = data;
+                    }
+                    listaEnglish.push(ingEnglish);
+                    setIngListEnglish(listaEnglish);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            
+            // Get data from edamam
+            const getEdamamData = async () => {
+                let ingredients = [];
+                const url = new URL(`http://localhost:3006/api/edamamdata/`);
+                ingListEnglish.forEach((ing) => {
+                    ingredients.push(
+                        `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
             );
         });
         url.searchParams.set("message", ingredients);
@@ -67,7 +68,15 @@ const FormIngredients = () => {
         console.log(data);
         console.log(data.totalNutrients);
     };
-    const delFromList = (index) => {
+    
+    // TODO: Add to localstorage
+    // useEffect(() => {
+        //     localStorage.setItem("ingList", ingList);    
+        // }, [ingList]);
+
+    // TODO: delete items from ingList too
+    // ! Breaks results
+        const delFromList = (index) => {
         const lista = [...ingList];
         lista.splice(index, 1);
         setIngList(lista);
@@ -111,7 +120,7 @@ const FormIngredients = () => {
                                 ? "Plato(s)"
                                 : ing.unidad
                         }`}
-                        <button className="eliminarButton" onClick={ () => delFromList(index)}>Eliminar</button>
+                        <button className="eliminarButton" onClick={ (index) => delFromList(index)}>Eliminar</button>
                     </li>
                 ))}
             </ul>
