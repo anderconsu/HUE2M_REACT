@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import NutValues from "./nutValues";
 
 const FormIngredients = () => {
     // * Functions
@@ -87,10 +88,18 @@ const FormIngredients = () => {
             return ingList;
         }
     };
+    const getEnglishListFromLocalStorage = () => {
+        let ingList = JSON.parse(localStorage.getItem("ingListEnglish"));
+        if (ingList === null) {
+            return [];
+        } else {
+            return ingList;
+        }
+    }
 
     //* Variable declaration
     const [ingList, setIngList] = useState(getListFromLocalStorage());
-    const [ingListEnglish, setIngListEnglish] = useState([]);
+    const [ingListEnglish, setIngListEnglish] = useState(getEnglishListFromLocalStorage);
     const [edamamData, setEdamamData] = useState({});
 
     //* UseEffects
@@ -99,7 +108,9 @@ const FormIngredients = () => {
     useEffect(() => {
         localStorage.setItem("ingList", JSON.stringify(ingList));
     }, [ingList]);
-
+    useEffect(() => {
+        localStorage.setItem("ingListEnglish", JSON.stringify(ingListEnglish));
+    }, [ingListEnglish]);
     return (
         <div className="IngredientList">
             <form onSubmit={addToList}>
@@ -151,16 +162,10 @@ const FormIngredients = () => {
             <button className="calcular" type="button" onClick={getEdamamData}>
                 Calcular
             </button>
+            
             {edamamData?.totalNutrients && (
-                <ul>
-                    {Object.entries(edamamData.totalNutrients).map(
-                        ([key, value]) => (
-                            <li key={key}>
-                                {key} : {value.quantity.toFixed(2)} {value.unit}
-                            </li>
-                        )
-                    )}
-                </ul>
+                <NutValues edamamData={edamamData}>
+                </NutValues>
             )}
 
             {edamamData === 555 ? (
