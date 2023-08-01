@@ -23,11 +23,11 @@ header {
     & img {
         transition: 1s;
         border-radius: 25%;
-        & :hover {
-            border-radius: 50%;
-        }
     }
-
+    & :hover {
+        border-radius: 50%;
+    }
+    
 }
 
 nav {

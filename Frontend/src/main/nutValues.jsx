@@ -1,3 +1,5 @@
+import "./css/nutValues.scss";
+
 let nutDict = {
     ENERC_KCAL : "calorias",
     FAT : "grasas",
@@ -32,7 +34,7 @@ let nutDict = {
 
 const NutValues = ({ edamamData }) => {
     return (
-        <ul>
+        <ul className="nutValues">
             {Object.entries(edamamData.totalNutrients).map(([key, value]) => {
                 if (value.quantity > 0) {
                     return (

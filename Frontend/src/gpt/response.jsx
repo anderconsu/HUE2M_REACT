@@ -9,7 +9,8 @@ const GptForm = () => {
         e.preventDefault();
         console.log(message);
         setLoading(true);
-        let response = await fetch(`http://localhost:3006/gpt/?message=${message}`);
+        let response = await fetch(`http://localhost:3006/api/gpt/?message=${message}`);
+        console.log(response);
         let data = await response.text();
         console.log(data);
         setResponse(data);
