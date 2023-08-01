@@ -13,7 +13,7 @@ services:
     build: ./Backend
     container_name: hue2m-back
     ports:
-      - "${BACK_PORT}:3000"
+      - "${BACK_PORT}:3006"
     volumes:
       - ./Backend:/app
       - /app/node_modules
