@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 
-
 const FormIngredients = () => {
-
-    // TODO: get ingList from local storage
-    const [ingList, setIngList] = useState([]);
-    const [ingListEnglish, setIngListEnglish] = useState([]);
-    const [edamamData, setEdamamData] = useState({});
+    // * Functions
 
     // Add form ingredients to lists
     const addToList = async (e) => {
@@ -34,7 +29,10 @@ const FormIngredients = () => {
                     ingEnglish = {
                         ingrediente: ingValue,
                         cantidad: parseInt(e.target.cantidad.value),
-                        unidad: e.target.unidad.value === "units" ? "" : e.target.unidad.value,
+                        unidad:
+                        e.target.unidad.value === "units"
+                        ? ""
+                        : e.target.unidad.value,
                     };
                 } else {
                     // If the translation is not successful an entire object is passed to gpt to translate
@@ -47,40 +45,61 @@ const FormIngredients = () => {
                     listaEnglish.push(ingEnglish);
                     setIngListEnglish(listaEnglish);
                 } catch (error) {
-                    console.log(error);
-                }
-            };
-            
-            // Get data from edamam
-            const getEdamamData = async () => {
-                let ingredients = [];
-                const url = new URL(`http://localhost:3006/api/edamamdata/`);
-                ingListEnglish.forEach((ing) => {
-                    ingredients.push(
-                        `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
-            );
-        });
-        url.searchParams.set("message", ingredients);
-        console.log(ingredients);
+            console.log(error);
+        }
+    };
+    
+    // Get data from edamam
+    const getEdamamData = async () => {
+        let ingredients = [];
+        const url = new URL(`http://localhost:3006/api/edamamdata/`);
+        ingListEnglish.forEach((ing) => {
+            ingredients.push(
+                `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
+                );
+            });
+            url.searchParams.set("message", ingredients);
+            console.log(ingredients);
         let response = await fetch(url);
         let data = await response.json();
         setEdamamData(data);
         console.log(data);
         console.log(data.totalNutrients);
     };
-    
-    // TODO: Add to localstorage
-    // useEffect(() => {
-        //     localStorage.setItem("ingList", ingList);    
-        // }, [ingList]);
 
-    // TODO: delete items from ingList too
-    // ! Breaks results
-        const delFromList = (index) => {
+    // Delete items from ingList too
+    const delFromList = (index) => {
         const lista = [...ingList];
+        const engLista = [...ingListEnglish];
         lista.splice(index, 1);
+        engLista.splice(index, 1);
         setIngList(lista);
-    }
+        setIngListEnglish(engLista);
+    };
+
+    
+    // Get ingList from local storage
+    const getListFromLocalStorage = () => {
+        let ingList = JSON.parse(localStorage.getItem("ingList"));
+        if (ingList === null) {
+            return [];
+        } else {
+            return ingList;
+        }
+    };
+
+    //* Variable declaration
+    const [ingList, setIngList] = useState(getListFromLocalStorage());
+    const [ingListEnglish, setIngListEnglish] = useState([]);
+    const [edamamData, setEdamamData] = useState({});
+
+    //* UseEffects
+
+    // Add to localstorage
+    useEffect(() => {
+        localStorage.setItem("ingList", JSON.stringify(ingList));
+    }, [ingList]);
+
     return (
         <div className="IngredientList">
             <form onSubmit={addToList}>
@@ -120,7 +139,12 @@ const FormIngredients = () => {
                                 ? "Plato(s)"
                                 : ing.unidad
                         }`}
-                        <button className="eliminarButton" onClick={ (index) => delFromList(index)}>Eliminar</button>
+                        <button
+                            className="eliminarButton"
+                            onClick={() => delFromList(index)}
+                        >
+                            Eliminar
+                        </button>
                     </li>
                 ))}
             </ul>
@@ -136,11 +160,12 @@ const FormIngredients = () => {
                             </li>
                         )
                     )}
-                </ul>        
+                </ul>
             )}
 
-            {edamamData === 555 ? <p>Hay un error al cotejar uno o varios ingredientes.</p> : null}
-            
+            {edamamData === 555 ? (
+                <p>Hay un error al cotejar uno o varios ingredientes.</p>
+            ) : null}
         </div>
     );
 };
