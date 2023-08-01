@@ -1,3 +1,6 @@
+img {
+    height: 100%;
+}
 header {
     display: flex;
     flex-direction: row;
@@ -6,16 +9,27 @@ header {
     height: 10vh;
     width: 100%;
     justify-content: space-between;
+
+    & h1 {
+        text-align: center;
+        margin: auto;
+    }
 }
+
 .logo {
     height: 100%;
     padding: 10px;
 
+    & img {
+        transition: 1s;
+        border-radius: 25%;
+        & :hover {
+            border-radius: 50%;
+        }
+    }
+
 }
-header h1 {
-    text-align: center;
-    margin: auto;
-}
+
 nav {
     display: flex;
     flex-direction: column;
@@ -26,14 +40,3 @@ nav {
     padding: 10px;
 }
 
-img {
-    height: 100%;
-}
-.logo img {
-    transition: 1s;
-    border-radius: 25%;
-}
-.logo img:hover {
-    border-radius: 50%;
-    transition: 1s;
-}
