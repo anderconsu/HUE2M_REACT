@@ -13,7 +13,7 @@ const GptForm = () => {
             `http://localhost:3006/api/gpt/?message=${message}`
         );
         console.log(response);
-        let data = await response.text();
+        let data = await response.json();
         console.log(data);
         setResponse(data);
         setLoading(false);

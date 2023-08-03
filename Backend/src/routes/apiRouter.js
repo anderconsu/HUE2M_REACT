@@ -16,12 +16,12 @@ apiRouter.get("/", (req, res) => {
 
 
 apiRouter.get("/gpt", async (req, res) => {
+    console.log("se ha llamado");
     if (req.query.message){
     let message = req.query.message;
     console.log("mensaje recibido: ", message);
     let response = await GptCall(message);
-    console.log("Respuesta: ", response);
-    res.send(response);
+    res.json(response);
     }else{
         res.status(400).send("No query message");
     }
