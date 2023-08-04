@@ -1,5 +1,4 @@
 import './App.scss';
-
 import React from 'react';
 import GptForm from './gpt/response';
 import Header from './header/header';
