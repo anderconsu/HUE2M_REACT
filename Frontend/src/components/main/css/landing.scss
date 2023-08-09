@@ -43,6 +43,7 @@
     & .bottomLogo {   
         transition: 100ms;
         width: 50%;
+        max-width: 400px;
         margin: 3rem auto;
         & img{
             animation-name: logoAppear;
