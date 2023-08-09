@@ -62,8 +62,8 @@ const Header = () => {
             </picture>
             <h1>HUE2M</h1>
             <nav>
-                <p><Link to="/login">Login</Link></p>
-                <p><Link to="/register">Registro</Link></p>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Registro</Link>
             </nav>
         </header>
     );

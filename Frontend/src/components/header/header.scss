@@ -1,3 +1,5 @@
+@use '../css/generalVariables.scss' as var;
+
 img {
     height: 100%;
 }
@@ -5,7 +7,7 @@ header {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    background-color: green;
+    background-color: var.$pri-color;
     height: 10vh;
     width: 100%;
     justify-content: space-between;
@@ -37,6 +39,10 @@ nav {
     justify-content: center;
     gap: 1rem;
     text-align: right;
-    padding: 10px;
+    padding: 10px;;
+        & a {
+            color: var.$sec-color;
+            text-decoration: none;
+        }
 }
 
