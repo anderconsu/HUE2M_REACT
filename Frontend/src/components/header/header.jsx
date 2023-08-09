@@ -1,7 +1,11 @@
+//context import 
+import UserContext from "../../context/userContext";
+import TokenContext from "../../context/token";
+import LoggedInContext from "../../context/loggedInContext";
+
 import "./header.scss";
 import "../../config/firebase-config.js";
 import { useEffect, useState, useContext } from "react";
-import LoggedInContext from "../../context/loggedInContext";
 
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 const provider = new GoogleAuthProvider();
@@ -10,23 +14,21 @@ provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 const auth = getAuth();
 auth.useDeviceLanguage();
 
+
 const Header = () => {
-    const [token, setToken] = useState("");
+    const [token, setToken] = useContext(TokenContext);
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
+    const { user, setUser } = useContext(UserContext);
     const loginwithGoogle =  () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential =
                     GoogleAuthProvider.credentialFromResult(result);
-                const resToken = credential.accessToken;
-
-                console.log("access t ", resToken);
-                // The signed-in user info.
+                console.log(credential);
                 const user = result.user;
-                // let tokenDes = await user.getIdTokenResult()
                 let idToken = await user.getIdToken()
-                localStorage.setItem("token", idToken)
+                setToken(idToken)
                 // IdP data available using getAdditionalUserInfo(result)
                 // ...
             })
@@ -51,23 +53,6 @@ const Header = () => {
             console.log("error loging out :", error);
         }
     }
-
-    useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-            try {
-                if (user !== null) {
-                console.log(user);
-                user.getIdToken().then((idToken) => {
-                    setToken(idToken);
-                    console.log(idToken);
-                });
-                }
-            } 
-            catch (error) {
-                console.log("error authstate :", error);
-            }
-        });
-        }, []);
     return (
         <header>
             <picture className="logo">
