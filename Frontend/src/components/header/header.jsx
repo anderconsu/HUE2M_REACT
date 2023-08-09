@@ -16,17 +16,14 @@ auth.useDeviceLanguage();
 
 
 const Header = () => {
-    const [token, setToken] = useContext(TokenContext);
+    const {token, setToken} = useContext(TokenContext); 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
     const { user, setUser } = useContext(UserContext);
     const loginwithGoogle =  () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential =
-                    GoogleAuthProvider.credentialFromResult(result);
-                console.log(credential);
                 const user = result.user;
+                setUser(user);
                 let idToken = await user.getIdToken()
                 setToken(idToken)
                 // IdP data available using getAdditionalUserInfo(result)
