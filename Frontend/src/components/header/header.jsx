@@ -5,7 +5,9 @@ import LoggedInContext from "../../context/loggedInContext";
 
 import "./header.scss";
 import "../../config/firebase-config.js";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext} from "react";
+import {Link} from "react-router-dom";
+
 
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 const provider = new GoogleAuthProvider();
@@ -60,8 +62,8 @@ const Header = () => {
             </picture>
             <h1>HUE2M</h1>
             <nav>
-                <p onClick={loginwithGoogle}>Login</p>
-                <p onClick={logOut}>Registro</p>
+                <p><Link to="/login">Login</Link></p>
+                <p><Link to="/register">Registro</Link></p>
             </nav>
         </header>
     );
