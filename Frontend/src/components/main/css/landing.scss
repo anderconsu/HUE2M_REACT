@@ -1,4 +1,4 @@
-@use '../css/generalVariables.scss' as var;
+@use '../../css/generalVariables.scss' as var;
 @keyframes logoAppear {
     0% {
         border-radius: 100%;
@@ -48,9 +48,11 @@
             animation-name: logoAppear;
             animation-duration: 1.5s;
             border-radius:100%;
+            transition: 1s;
         }
         & :hover{
-            cursor: pointer;  
+            cursor: pointer; 
+            scale: 1.1;
         }
     }
 }

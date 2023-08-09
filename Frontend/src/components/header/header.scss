@@ -10,8 +10,13 @@ header {
     justify-content: space-between;
 
     & h1 {
+        transition:300ms;
         text-align: center;
         margin: auto;
+    }
+    & h1:hover {
+        cursor: pointer;
+        color: var.$third-color;
     }
 }
 
@@ -24,6 +29,7 @@ header {
         border-radius: 25%;
     }
     & :hover {
+        cursor: pointer;
         border-radius: 50%;
     }
     
@@ -40,6 +46,11 @@ nav {
         & a {
             color: var.$sec-color;
             text-decoration: none;
+            transition: 300ms;
+
+            &:hover {
+                color: var.$third-color;
+            }
         }
 }
 

@@ -5,9 +5,8 @@ import LoggedInContext from "../../context/loggedInContext";
 
 import "./header.scss";
 import "../../config/firebase-config.js";
-import { useEffect, useState, useContext} from "react";
-import {Link} from "react-router-dom";
-
+import {useContext} from "react";
+import {Link, useNavigate} from "react-router-dom";
 
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 const provider = new GoogleAuthProvider();
@@ -18,9 +17,14 @@ auth.useDeviceLanguage();
 
 
 const Header = () => {
+    const Navigate = useNavigate();
     const {token, setToken} = useContext(TokenContext); 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
     const { user, setUser } = useContext(UserContext);
+
+    const toRoot = () => {
+        Navigate("/");
+    }
     const loginwithGoogle =  () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
@@ -54,13 +58,13 @@ const Header = () => {
     }
     return (
         <header>
-            <picture className="logo">
+            <picture className="logo" onClick={toRoot}>
                 <img
                     src="images/Green_Line_Branch_Organic_Nature_Logo.png"
                     alt="logo"
                 />
             </picture>
-            <h1>HUE2M</h1>
+            <h1 onClick={toRoot}>HUE2M</h1>
             <nav>
                 <Link to="/login">Login</Link>
                 <Link to="/register">Registro</Link>
