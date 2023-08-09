@@ -1,1 +1,56 @@
 @use '../css/generalVariables.scss' as var;
+@keyframes logoAppear {
+    0% {
+        border-radius: 100%;
+        scale: 0;
+        opacity: 0;
+    }
+    50%{
+        scale: 1;
+        opacity: 1;
+        border-radius: 100%;
+    }
+    75%{
+        scale: 1.1;
+        
+    }
+    100%{
+        scale: 1;
+    }
+}
+
+
+.landing {
+    padding: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    
+    // & > * {
+    //     border: 1px solid var.$pri-color;
+    // }
+    & .bienvenida, & h3 {
+        text-align: center;
+    }
+    & .info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    & .bottomLogo {   
+        transition: 100ms;
+        width: 50%;
+        margin: 3rem auto;
+        & img{
+            animation-name: logoAppear;
+            animation-duration: 1.5s;
+            border-radius:100%;
+        }
+        & :hover{
+            cursor: pointer;  
+        }
+    }
+}
