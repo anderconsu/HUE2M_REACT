@@ -4,6 +4,7 @@ import TokenContext from "../../context/token";
 import LoggedInContext from "../../context/loggedInContext";
 //React
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 //Firebase
 import "../../config/firebase-config.js";
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
@@ -15,6 +16,7 @@ auth.useDeviceLanguage();
 
 
 const Header = () => {
+    const Navigate = useNavigate();
     const {token, setToken} = useContext(TokenContext); 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
     const { user, setUser } = useContext(UserContext);
@@ -25,6 +27,7 @@ const Header = () => {
                 setUser(user);
                 let idToken = await user.getIdToken()
                 setToken(idToken)
+                Navigate("/");
                 // IdP data available using getAdditionalUserInfo(result)
                 // ...
             })

@@ -1,7 +1,16 @@
 import './css/landing.scss';
+import { useContext } from 'react';
+import LoggedInContext from "../../context/loggedInContext";
+import  Form from './form';
+
 const Landing = () => {
-    return (
-        <section className="landing">
+    const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
+
+    if (isLoggedIn === true) {
+        return <Form />;
+    }else{
+        return (
+            <section className="landing">
             <div className='bienvenida'>
                 <p>Bienvenido a</p>
                 <h2>Have You Eaten too much?</h2>
@@ -25,10 +34,11 @@ const Landing = () => {
                 <img
                     src="images/Green_Line_Branch_Organic_Nature_Logo.png"
                     alt="logo"
-                />
+                    />
             </picture>
         </section>
     );
+}
 };
 
 export default Landing;

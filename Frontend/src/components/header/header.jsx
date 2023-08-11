@@ -5,7 +5,7 @@ import LoggedInContext from "../../context/loggedInContext";
 
 import "./header.scss";
 import "../../config/firebase-config.js";
-import {useContext} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
@@ -32,6 +32,8 @@ const Header = () => {
                 setUser(user);
                 let idToken = await user.getIdToken()
                 setToken(idToken)
+                setIsLoggedIn(true)
+
                 // IdP data available using getAdditionalUserInfo(result)
                 // ...
             })
@@ -50,12 +52,17 @@ const Header = () => {
     const logOut = () => {
         try {
             signOut(auth).then (
-                console.log("user loged out")
-            );
+                setIsLoggedIn(false)
+                ).then (
+                    console.log("user loged out")
+                ).then (
+                    console.log(isLoggedIn)
+                );
         } catch (error) {
             console.log("error loging out :", error);
         }
     }
+
     return (
         <header>
             <picture className="logo" onClick={toRoot}>
@@ -65,10 +72,17 @@ const Header = () => {
                 />
             </picture>
             <h1 onClick={toRoot}>HUE2M</h1>
-            <nav>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Registro</Link>
-            </nav>
+            {isLoggedIn === true ? (
+                <nav>
+                    <p onClick={logOut}>Cerrar sesión</p>
+                </nav>
+                
+            ) : (
+                <nav>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Registro</Link>
+                </nav>
+            )}
         </header>
     );
 };

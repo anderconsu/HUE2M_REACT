@@ -28,6 +28,7 @@ const Root = () => {
                 user.getIdToken().then((idToken) => {
                     setToken(idToken);
                 });
+                setIsLoggedIn(true);
                 }
             } 
             catch (error) {
