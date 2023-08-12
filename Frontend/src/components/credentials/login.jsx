@@ -3,8 +3,8 @@ import UserContext from "../../context/userContext";
 import TokenContext from "../../context/token";
 import LoggedInContext from "../../context/loggedInContext";
 //React
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
 //Firebase
 import "../../config/firebase-config.js";
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
@@ -15,7 +15,7 @@ const auth = getAuth();
 auth.useDeviceLanguage();
 
 
-const Header = () => {
+const Login = () => {
     const Navigate = useNavigate();
     const {token, setToken} = useContext(TokenContext); 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
@@ -56,13 +56,13 @@ const Header = () => {
         <section>
             <h2>LOGIN</h2>
             <article>
+                <Link to="/login/email">Email</Link>
+            </article> 
+            <article>
                 <p onClick={loginwithGoogle}>Google</p>
             </article>
-            <article>
-                <p onClick={logOut}>Registro</p>
-            </article> 
         </section>
     );
 };
 
-export default Header;
+export default Login;

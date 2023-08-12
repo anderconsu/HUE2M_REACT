@@ -5,7 +5,9 @@ import App from "../App.js"
 
 import Landing from "../components/main/landing.jsx";
 import Register from "../components/credentials/register.jsx";
+import EmailRegister from "../components/credentials/emailRegister.jsx";
 import Login from "../components/credentials/login.jsx";
+import EmailLogin from "../components/credentials/emailLogin.jsx";
 import Form from "../components/main/form.jsx";
 
 const Router = createBrowserRouter([
@@ -23,8 +25,16 @@ const Router = createBrowserRouter([
                 element: <Register /> 
             }, 
             {
+                path:"/login/email",
+                element: <EmailLogin/>
+            },
+            {
                 path:"/login",
                 element: <Login />
+            },
+            {
+                path:"/register/email",
+                element: <EmailRegister/>
             },
             {
                 path:"/form",
