@@ -12,7 +12,8 @@ const EmailRegister = () => {
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
     const [firebaseError, setFirebaseError] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [submitError, setSubmitError] = useState([]);
+    const [errorMessage, setErrorMessage] = useState([]);
     const registerMail = async () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -42,21 +43,22 @@ const EmailRegister = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrorMessage("");
+        let passError = [];
         if (!emailRegx.test(e.target.email.value)) {
-            // if (errorMessage) {
-            //     setErrorMessage(errorMessage + ", ");
-            // }
-            setErrorMessage("El correo electrónico no es válido");
-        } else if (
+            passError.push("El correo electrónico no es válido");
+        }
+        if (
             !e.target.email.value ||
             !e.target.password.value ||
             !e.target.repassword.value
         ) {
-            setErrorMessage("Todos los campos son obligatorios");
+            passError.push("Todos los campos son obligatorios");
+        }
+        if (passError) {
+            setSubmitError(passError);
         }
 
-        if (errorMessage) {
+        if (passError.length > 0) {
             return;
         }
         let formPassword = e.target.password.value;
@@ -68,7 +70,6 @@ const EmailRegister = () => {
     };
 
     useEffect(() => {
-        setErrorMessage("");
         let passError = [];
         if (password !== repassword) {
             passError.push("Las contraseñas no coinciden");
@@ -76,9 +77,7 @@ const EmailRegister = () => {
         if (password.length < 6 && password) {
             passError.push("La contraseña debe tener al menos 6 caracteres");
         }
-        if (passError) {
-            setErrorMessage(passError);
-        }
+        setErrorMessage(passError);
     }, [email, password, repassword]);
     return (
         <section className="register">
@@ -107,6 +106,10 @@ const EmailRegister = () => {
             <section className="errors">
                 {errorMessage &&
                     errorMessage.map((error, index) => (
+                        <p key={index}>{error}</p>
+                    ))}
+                {submitError &&
+                    submitError.map((error, index) => (
                         <p key={index}>{error}</p>
                     ))}
                 {firebaseError && <p>{firebaseError}</p>}
