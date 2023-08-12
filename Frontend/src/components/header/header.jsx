@@ -51,6 +51,7 @@ const Header = () => {
     };
     const logOut = () => {
         try {
+            localStorage.clear();
             signOut(auth).then (
                 setIsLoggedIn(false)
                 ).then (
