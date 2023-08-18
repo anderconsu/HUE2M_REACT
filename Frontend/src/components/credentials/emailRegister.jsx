@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import "../../config/firebase-config.js";
+import { useNavigate } from "react-router-dom";
 
+import "../../config/firebase-config.js";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 const auth = getAuth();
+
 
 // regex
 const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 const EmailRegister = () => {
+    const Navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
@@ -20,6 +23,8 @@ const EmailRegister = () => {
                 // Signed in
                 const user = userCredential.user;
                 console.log(user);
+                Navigate("/");
+
                 // ...
             })
             .catch((error) => {
@@ -83,22 +88,25 @@ const EmailRegister = () => {
         <section className="register">
             <h1>Email Register</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="emailRegister">Email</label>
                 <input
                     type="text"
                     name="email"
+                    id="emailRegister"
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="password">Contraseña</label>
+                <label htmlFor="passwordRegister">Contraseña</label>
                 <input
                     type="password"
                     name="password"
+                    id="passwordRegister"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <label htmlFor="repassword">Repetir contraseña</label>
+                <label htmlFor="repasswordRegister">Repetir contraseña</label>
                 <input
                     type="password"
                     name="repassword"
+                    id="repasswordRegister"
                     onChange={(e) => setRePassword(e.target.value)}
                 />
                 <button type="submit">Registrarse</button>
