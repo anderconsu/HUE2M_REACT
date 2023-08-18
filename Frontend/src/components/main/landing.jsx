@@ -2,12 +2,18 @@ import './css/landing.scss';
 import { useContext } from 'react';
 import LoggedInContext from "../../context/loggedInContext";
 import  Form from './form';
+import GptForm from '../gpt/response';
 
 const Landing = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
 
     if (isLoggedIn === true) {
-        return <Form />;
+        return (
+            <section className="userLanding">
+                <Form />
+                <GptForm />
+            </section>
+        )
     }else{
         return (
             <section className="landing">
