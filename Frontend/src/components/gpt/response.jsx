@@ -3,6 +3,7 @@ import { useState } from "react";
 const GptForm = () => {
     const [response, setResponse] = useState("");
     const [loading, setLoading] = useState(false);
+    const [data, setData] = useState(localStorage.getItem("formattedData") ? true : false);
 
     const getMessage = async (e) => {
         e.preventDefault();
@@ -36,9 +37,10 @@ const GptForm = () => {
     };
     return (
         <section>
+            {data && (    
             <form onSubmit={getMessage}>
                 <p>{response}</p>
-                <button type="submit" disabled={loading}>
+                <button type="submit" hidden={loading}>
                     Submit
                 </button>
                 {loading ? (
@@ -50,6 +52,7 @@ const GptForm = () => {
                     </picture>
                 ) : null}
             </form>
+            )}
         </section>
     );
 };
