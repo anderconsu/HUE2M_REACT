@@ -6,6 +6,7 @@ const GptForm = () => {
     const [data, setData] = useState(localStorage.getItem("formattedData") ? true : false);
 
     const getMessage = async (e) => {
+        setResponse("");
         e.preventDefault();
         const formattedData = JSON.parse(localStorage.getItem("formattedData"));
         if (formattedData) {
@@ -15,10 +16,10 @@ const GptForm = () => {
             const ingListMessage = await ingList.map((ing) => `${ing.cantidad}${ing.unidad} de ${ing.ingrediente}`);
             const currentTime = now.toLocaleTimeString()
             //
-            // TODO: get name (age, gender, weight and height) 
+            // TODO: get name (age, gender, weight, food preference and height) 
             // let name = localStorage.getItem("name");
             // Message
-            let message = `Hola, me llamo Ander, mido 1,70 y peso 70Kg, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
+            let message = `Hola, me llamo Ander, mido 1,70 , peso 70Kg y soy vegetariano, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
             console.log(message);
             // Loading
             setLoading(true);
