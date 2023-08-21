@@ -24,7 +24,7 @@ async function GptCall(message) {
     try {
         console.log("starting call: ", message);
         let respuesta = await openai.createChatCompletion({
-            model: models[0],
+            model: models[1],
             messages: messages,
             temperature: 0,
             max_tokens: 1000,
