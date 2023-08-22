@@ -10,11 +10,13 @@ import "../../config/firebase-config.js";
 import {
     getAuth,
     signInWithPopup,
-    signOut,
     GoogleAuthProvider,
+    GithubAuthProvider,
 } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+const gitProvider = new GithubAuthProvider();
+gitProvider.addScope("repo");
 
 const auth = getAuth();
 auth.useDeviceLanguage();
@@ -24,7 +26,9 @@ const Register = () => {
     const { token, setToken } = useContext(TokenContext);
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
     const { user, setUser } = useContext(UserContext);
-    const loginwithGoogle = () => {
+    const [firebaseError, setFirebaseError] = useState("");
+
+    const loginwithGoogle = (provider) => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const user = result.user;
@@ -41,6 +45,16 @@ const Register = () => {
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                if (
+                    errorCode ===
+                    "auth/account-exists-with-different-credential"
+                ) {
+                    setFirebaseError(
+                        "Este correo se registró con otro proveedor"
+                    );
+                }else{
+                    setFirebaseError(errorCode);
+                }
                 // The email of the user's account used.
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
@@ -49,13 +63,6 @@ const Register = () => {
                 // ...
             });
     };
-    const logOut = () => {
-        try {
-            signOut(auth).then(console.log("user loged out"));
-        } catch (error) {
-            console.log("error loging out :", error);
-        }
-    };
     return (
         <section className="register">
             <h3>Registro</h3>
@@ -63,8 +70,24 @@ const Register = () => {
                 <Link to="/register/email">Email</Link>
             </article>
             <article>
-                <p onClick={loginwithGoogle}>Google</p>
+                <p
+                    onClick={() => {
+                        loginwithGoogle(provider);
+                    }}
+                >
+                    Google
+                </p>
             </article>
+            <article>
+                <p
+                    onClick={() => {
+                        loginwithGoogle(gitProvider);
+                    }}
+                >
+                    Github
+                </p>
+            </article>
+            {firebaseError && <p>{firebaseError}</p>}
         </section>
     );
 };
