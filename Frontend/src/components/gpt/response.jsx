@@ -1,9 +1,13 @@
-import { useState } from "react";
-
+//React
+import { useState, useContext } from "react";
+//Context
+import UserContext from "../../context/userContext";
+import IsDataContext from "../../context/isData";
 const GptForm = () => {
+    const { user, setUser } = useContext(UserContext); 
+    const {isData, setIsData} = useContext(IsDataContext);
     const [response, setResponse] = useState("");
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState(localStorage.getItem("formattedData") ? true : false);
 
     const getMessage = async (e) => {
         setResponse("");
@@ -17,9 +21,9 @@ const GptForm = () => {
             const currentTime = now.toLocaleTimeString()
             //
             // TODO: get name (age, gender, weight, food preference and height) 
-            // let name = localStorage.getItem("name");
+            let name = user.displayName
             // Message
-            let message = `Hola, me llamo Ander, mido 1,70 , peso 70Kg y soy vegetariano, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
+            let message = `Hola, me llamo ${name}, mido 1,70 , peso 70Kg y soy vegetariano, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
             console.log(message);
             // Loading
             setLoading(true);
@@ -38,7 +42,7 @@ const GptForm = () => {
     };
     return (
         <section>
-            {data && (    
+            {isData && (    
             <form onSubmit={getMessage}>
                 <p>{response}</p>
                 <button type="submit" hidden={loading}>

@@ -1,5 +1,8 @@
-import { useEffect } from "react";
+//React
+import { useEffect, useContext } from "react";
 import "./css/nutValues.scss";
+//Context
+import IsDataContext from "../../context/isData";
 
 let nutDict = {
     ENERC_KCAL: "Calorias",
@@ -37,16 +40,21 @@ let nutDict = {
 };
 
 const NutValues = ({ edamamData }) => {
+    const {isData, setIsData} = useContext(IsDataContext);
+
     useEffect(() => {
         if (edamamData) {
             let formattedData = [];
+            setIsData(true);
             Object.entries(edamamData.totalNutrients).forEach(([key, value]) => {
                 if (value.quantity > 0) {
                     formattedData.push(`${value.quantity.toFixed(2)}${value.unit} de ${nutDict[key]}`);
                 }
             })
             localStorage.setItem("formattedData", JSON.stringify(formattedData));
-        }
+        }else(
+            setIsData(false)
+        )
     }, [edamamData]);
 
     return (
