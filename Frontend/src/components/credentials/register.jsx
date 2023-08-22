@@ -15,7 +15,14 @@ import {
 } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+provider.setCustomParameters({
+    prompt: "select_account",
+});
+
 const gitProvider = new GithubAuthProvider();
+gitProvider.setCustomParameters({
+    prompt: "select_account",
+});
 gitProvider.addScope("repo");
 
 const auth = getAuth();
@@ -52,7 +59,9 @@ const Register = () => {
                     setFirebaseError(
                         "Este correo se registró con otro proveedor"
                     );
-                }else{
+                } else if (errorCode === "auth/user-cancelled") {
+                    setFirebaseError("El registro fue cancelado");
+                } else {
                     setFirebaseError(errorCode);
                 }
                 // The email of the user's account used.
