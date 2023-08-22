@@ -75,6 +75,7 @@ const Header = () => {
             <h1 onClick={toRoot}>HUE2M</h1>
             {isLoggedIn === true ? (
                 <nav>
+                    <p>{user.email}</p>
                     <p onClick={logOut}>Cerrar sesión</p>
                 </nav>
                 

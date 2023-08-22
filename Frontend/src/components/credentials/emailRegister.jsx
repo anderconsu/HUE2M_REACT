@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../config/firebase-config.js";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 const auth = getAuth();
 
 
@@ -12,25 +12,29 @@ const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 const EmailRegister = () => {
     const Navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
     const [firebaseError, setFirebaseError] = useState("");
     const [submitError, setSubmitError] = useState([]);
     const [errorMessage, setErrorMessage] = useState([]);
     const registerMail = async () => {
+        let user = null;
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
-                const user = userCredential.user;
-                console.log(user);
-                Navigate("/");
-
+                user = userCredential.user;
+                updateProfile(user, {displayName: name.toString()})
                 // ...
+            }) 
+            .then(() => {
+                Navigate("/");  
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log("error en el registro;", errorCode);
+                console.log("error message:", errorMessage);
                 if (errorCode === "auth/email-already-in-use") {
                     setFirebaseError("El correo electrónico ya está en uso");
                 }
@@ -95,6 +99,8 @@ const EmailRegister = () => {
                     id="emailRegister"
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                <label htmlFor="nameRegister">Nombre</label>
+                <input type="text" name="name" id="nameRegister" maxLength={30} onChange={(e) => setName(e.target.value)} />
                 <label htmlFor="passwordRegister">Contraseña</label>
                 <input
                     type="password"

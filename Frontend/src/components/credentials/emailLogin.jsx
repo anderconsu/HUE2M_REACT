@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../config/firebase-config.js";
@@ -21,23 +19,29 @@ const EmailLogin = () => {
                 // Signed in
                 const user = userCredential.user;
                 console.log(user);
-                Navigate("/");
                 // ...
+            })
+            .then(() => {
+                Navigate("/");
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log("error en el login;", errorCode);
                 console.log("error message:", errorMessage);
-                if (errorCode === "auth/missing-password" ) {
+                if (errorCode === "auth/missing-password") {
                     setFirebaseError("Es necesario ingresar la contraseña");
                 }
-                if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
-                    setFirebaseError("El usuario o la contraseña no son correctos");
+                if (
+                    errorCode === "auth/user-not-found" ||
+                    errorCode === "auth/wrong-password"
+                ) {
+                    setFirebaseError(
+                        "El usuario o la contraseña no son correctos"
+                    );
                 }
-                
             });
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,4 +77,3 @@ const EmailLogin = () => {
 };
 
 export default EmailLogin;
-
