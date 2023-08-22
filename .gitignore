@@ -11,3 +11,4 @@ Frontend/.env
 .vscode
 
 Backend/src/config/firebase-config.js
+Backend/dbFiles
