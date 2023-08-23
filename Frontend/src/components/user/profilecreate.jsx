@@ -28,7 +28,7 @@ const ProfileCreate = () => {
         const weight = e.target.weight.value ? e.target.weight.value : null;
         const birthday = e.target.birthday ? e.target.birthday.value : null;
         const sex = !e.target.sex.value == "0" ? e.target.sex.value : null;
-        const foodPreference = !e.target.foodPreference.value == "O" ? e.target.foodPreference.value : null;
+        const foodPreference = !e.target.foodPreference.value == "0" ? e.target.foodPreference.value : null;
         let userData = {
             email,
             height,
@@ -39,6 +39,7 @@ const ProfileCreate = () => {
             condition: foodConditions
 
         }
+        console.log(userData);
         const response = await fetch("http://localhost:3006/user/create", {
             method: "POST",
             headers: {
@@ -74,7 +75,7 @@ const ProfileCreate = () => {
                 </select>
                 <label htmlFor="foodPreference">Preferencias de dieta</label>
                 <select id="foodPreference">
-                    <option value="O">Omnívoro</option>
+                    <option value="0">Omnívoro</option>
                     <option value="Vege">Vegetariano</option>
                     <option value="Vega">Vegano</option>
                 </select>

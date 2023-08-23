@@ -85,7 +85,7 @@ const GptForm = () => {
             }
 
             // Message
-            let message = `Hola, me llamo ${name}${sexMessage}${ageMessage}${heightMessage}${weightMessage}${foodPreferenceMessage}, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
+            let message = `Hola, me llamo ${name}${sexMessage}${ageMessage}${heightMessage}${weightMessage}${foodPreferenceMessage}${conditionMessage}, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
             console.log(message);
             // Loading
             setLoading(true);
