@@ -24,7 +24,8 @@ const FormIngredients = () => {
             let ingEnglish = await fetch(
                 `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
                 );
-                if (ingEnglish) {
+                console.log("ingEnglish ",ingEnglish);
+                if (ingEnglish.status === 200 ) {
                     // If the translation is successful with the google translation in the backend
                     let ingValue = await ingEnglish.text();
                     ingEnglish = {

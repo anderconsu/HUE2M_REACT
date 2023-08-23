@@ -7,7 +7,7 @@ const translation = async (text, lang = 'es') => {
         return response.text; 
     } catch (error) {
         console.error('Translation error:', error);
-        return null;
+        return "error";
     }
 }
 

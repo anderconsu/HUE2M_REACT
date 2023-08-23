@@ -29,12 +29,17 @@ apiRouter.get("/gpt", async (req, res) => {
 apiRouter.get("/translate", async (req, res) => {
     if (req.query.message){
     let message = req.query.message;
+    if (!message){
+        res.status(400).send("No query message");
+    }
     console.log("mensaje a traducir recibido: ", message);
     let response = await translate(message);
-    console.log("Respuesta: ", response);
-    res.send(response);
+    if (response === "error"){
+        res.status(400).send("error in translation");
+    }
     }else{
-        res.status(400).send("No query message");
+        console.log("Respuesta: ", response);
+        res.send(response);
     }
 });
 
