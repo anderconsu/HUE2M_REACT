@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
+
 // OpenAI API credentials
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,

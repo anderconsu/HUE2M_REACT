@@ -1,5 +1,5 @@
 import { Router } from "express";
-import addUser from "../controllers/user/userController.js";
+import userController from "../controllers/user/userController.js";
 
 const userRouter = Router();
 userRouter.get("/", (req, res) => {
@@ -8,7 +8,15 @@ userRouter.get("/", (req, res) => {
 
 userRouter.post("/create", async (req, res) => {
     try{
-        addUser(req, res);
+        userController.addUser(req, res);
+    }
+    catch(error){
+        res.status(400).send(error);
+    }
+})
+userRouter.post("/get", async (req, res) => {
+    try{
+        userController.getUser(req, res);
     }
     catch(error){
         res.status(400).send(error);
