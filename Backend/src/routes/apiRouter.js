@@ -10,7 +10,7 @@ import GptTranslation from "../controllers/api/gptTranslateJson.js";
 const apiRouter = Router();
 
 apiRouter.get("/", (req, res) => {
-    res.send("For here on there are api routes");
+    res.status(200).send("From here after there are api routes");
 })
 
 

@@ -1,26 +1,28 @@
 import User from "../../models/user.js";
 
 const addUser = async (req, res) => {
-    let userInfo = req.body.user
+    let userInfo = req.body
     let dbUser = await User.findOne({ email: userInfo.email })
     if (dbUser) {
-        return res.status(400).send("Este usuario ya ha sido registrado anteriormente.")
-    }
-    const user = new User({
-        email: userInfo.email,
-        height: userInfo.height,
-        weight: userInfo.weight,
-        age: userInfo.age,
-        genre: userInfo.genre,
-        foodPreference: userInfo.foodPreference,
-        condition: userInfo.condition,
-    })
-    try {
-        await user.save()
-        res.status(201).send(user)
-    } catch (error) {
-        res.status(400).send(error)
-        console.log(error)
+        console.log("Se ha intentado registrar a un usuario que ya existe.");
+        res.status(409).send()
+    }else{
+        const user = new User({
+            email: userInfo.email,
+            height: userInfo.height,
+            weight: userInfo.weight,
+            birthday: userInfo.birthday,
+            sex: userInfo.sex,
+            foodPreference: userInfo.foodPreference,
+            condition: userInfo.condition,
+        })
+        try {
+            await user.save()
+            res.status(201).json(user)
+        } catch (error) {
+            res.status(400).json(error)
+            console.log("error en addUser", error)
+        }
     }
 }
 export default addUser
