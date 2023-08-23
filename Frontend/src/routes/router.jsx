@@ -9,6 +9,7 @@ import EmailRegister from "../components/credentials/emailRegister.jsx";
 import Login from "../components/credentials/login.jsx";
 import EmailLogin from "../components/credentials/emailLogin.jsx";
 import Form from "../components/main/form.jsx";
+import ProfileCreate from "../components/user/profilecreate.jsx";
 
 const Router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const Router = createBrowserRouter([
             {
                 path:"/form",
                 element: <Form/>
+            },
+            {
+                path:"/profile",
+                element:<ProfileCreate/> 
             }
 
         ]         

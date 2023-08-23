@@ -4,7 +4,6 @@ const UserSchema = new connection.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     height: {
         type: String,
@@ -14,11 +13,11 @@ const UserSchema = new connection.Schema({
         type: String,
         required: false,
     },
-    age: {
+    birthday: {
         type: String,
         required: false,
     },
-    genre: {
+    sex: {
         type: String,
         required: false,
     },
@@ -27,7 +26,7 @@ const UserSchema = new connection.Schema({
         required: false,
     },
     condition: {
-        type: String,
+        type: Array,
         required: false,
     },
 });
