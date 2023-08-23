@@ -1,15 +1,26 @@
 import User from "../../models/user.js";
 
-const addUser = async () => {
+const addUser = async (req, res) => {
+    let userInfo = req.body.user
+    let dbUser = await User.findOne({ email: userInfo.email })
+    if (dbUser) {
+        return res.status(400).send("Este usuario ya ha sido registrado anteriormente.")
+    }
     const user = new User({
-        email: "prueba",
-        height: "1.78",
-        weight: "80",
-        age: "20",
-        genre: "masculino",
-        foodPreference: "vegano",
-        condition: "normal",
+        email: userInfo.email,
+        height: userInfo.height,
+        weight: userInfo.weight,
+        age: userInfo.age,
+        genre: userInfo.genre,
+        foodPreference: userInfo.foodPreference,
+        condition: userInfo.condition,
     })
-    await user.save()
+    try {
+        await user.save()
+        res.status(201).send(user)
+    } catch (error) {
+        res.status(400).send(error)
+        console.log(error)
+    }
 }
 export default addUser
