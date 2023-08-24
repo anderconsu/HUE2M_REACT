@@ -1,6 +1,9 @@
 // React
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ProfileCreate from "./profilecreate";
+
 
 // Context
 import UserContext from "../../context/userContext";
@@ -9,6 +12,7 @@ import conditDict from "./conditDict";
 const Profile = () => {
     let [userData, setUserData] = useState(null);
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
     const getUser = async () => {
         let usuario = user;
         if (usuario.email) {
@@ -23,8 +27,11 @@ const Profile = () => {
                 if (response.ok) {
                     let data = await response.json();
                     setUserData(data);
-                } else {
-                    console.log(response);
+                }else if (response.statusText === "Not Found") {
+                    setUserData("ND");
+                } 
+                else {
+                    console.log("error en getUser (profile.jsx)", response);
                 }
             } catch (error) {
                 console.log("error en getUser", error);
@@ -33,17 +40,13 @@ const Profile = () => {
         }
     };
     useEffect(() => {
-        if (!user) {
-            setUserData(null);
-        }else{
+        if (user) {
             getUser();
         }
     }, [user]);
     
-    if (!user) {
-        return (
-            <ProfileCreate />
-        );
+    if (userData === "ND") {
+        return <ProfileCreate/>
     }else {
         if (userData === null) {
             return <p>Cargando...</p>;
