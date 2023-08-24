@@ -22,7 +22,6 @@ const Profile = () => {
                 });
                 if (response.ok) {
                     let data = await response.json();
-                    console.log(data);
                     setUserData(data);
                 } else {
                     console.log(response);
@@ -79,15 +78,15 @@ const Profile = () => {
                     <article>
                         
                     </article>
-                    <p>Condiciones: {" "}
-                    {userData.condition.length === 0 ? "No hay condiciones"
-                    :
+                    <p>Condiciones: {" "} {userData.condition.length === 0 && "No hay condiciones"}</p>
+                    {userData.condition.length > 0 && (
                     <ul>
                         {userData.condition.map((condition, index) => (
                             <li key={index}>{conditDict[condition]}</li>
                         ))}
-                    </ul>
-                    }</p>
+                    </ul>                     
+                    )}
+                    
                 </article>
             </section>  
         )
