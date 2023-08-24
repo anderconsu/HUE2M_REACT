@@ -4,40 +4,8 @@ import "./css/nutValues.scss";
 //Context
 import IsDataContext from "../../context/isData";
 
-let nutDict = {
-    ENERC_KCAL: "Calorias",
-    FAT: "Grasas",
-    CHOLE: "Colesterol",
-    FASAT: "Grasas saturadas",
-    FAMS: "Grasas monoinsaturadas",
-    FAPU: "Grasas polinsaturadas",
-    CHOCDF: "Carboidratos, por diferencia",
-    "CHOCDF.net": "Carboidratos (netos)",
-    FIBTG: "Fibra",
-    SUGAR: "Azúcares",
-    PROCNT: "Proteinas",
-    NA: "Sodio",
-    CA: "Calcio",
-    MG: "Magnesio",
-    K: "Potasio",
-    FE: "Hierro",
-    ZN: "Zinc",
-    P: "Fósforo",
-    VITA_RAE: "Vitamina A, RAE",
-    VITC: "Vitamina C",
-    THIA: "Vitamina B1",
-    RIBF: "Riboflavina,",
-    NIA: "Niacina",
-    VITB6A: "Vitamina B6",
-    FOLDFE: "Folato, DFE",
-    FOLFD: "Folato, comida",
-    FOLAC: "Ácido fólico",
-    TOCPHA: "Vitamina E",
-    VITK1: "Vitamina K",
-    WATER: "Agua",
-    VITB12: "Vitamina B12",
-    VITD: "Vitamina D",
-};
+import nutDict from "./nutDict";
+
 
 const NutValues = ({ edamamData }) => {
     const {isData, setIsData} = useContext(IsDataContext);

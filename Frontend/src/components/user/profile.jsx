@@ -4,7 +4,8 @@ import ProfileCreate from "./profilecreate";
 
 // Context
 import UserContext from "../../context/userContext";
-
+// Dictionary
+import conditDict from "./conditDict";
 const Profile = () => {
     let [userData, setUserData] = useState(null);
     const { user } = useContext(UserContext);
@@ -83,7 +84,7 @@ const Profile = () => {
                     :
                     <ul>
                         {userData.condition.map((condition, index) => (
-                            <li key={index}>{condition}</li>
+                            <li key={index}>{conditDict[condition]}</li>
                         ))}
                     </ul>
                     }</p>
