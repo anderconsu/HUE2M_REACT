@@ -51,7 +51,7 @@ const Header = () => {
             <h1 onClick={toRoot}>HUE2M</h1>
             {isLoggedIn === true ? (
                 <nav>
-                    <p onClick={() => {Navigate("/profile")} }>{user.displayName}</p>
+                    <Link to ="/profile">{user.displayName}</Link>
                     <p onClick={logOut}>Cerrar sesión</p>
                 </nav>
                 

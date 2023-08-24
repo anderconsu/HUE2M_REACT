@@ -43,13 +43,14 @@ nav {
     gap: 1rem;
     text-align: right;
     padding: 10px;;
-        & a {
+        & a, p {
             color: var.$sec-color;
             text-decoration: none;
             transition: 300ms;
 
             &:hover {
                 color: var.$third-color;
+                cursor: pointer;
             }
         }
 }
