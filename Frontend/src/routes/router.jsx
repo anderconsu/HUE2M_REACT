@@ -8,7 +8,6 @@ import EmailRegister from "../components/credentials/emailRegister.jsx";
 import Login from "../components/credentials/login.jsx";
 import EmailLogin from "../components/credentials/emailLogin.jsx";
 import Form from "../components/main/form.jsx";
-import ProfileCreate from "../components/user/profilecreate.jsx";
 import Profile from "../components/user/profile.jsx";
 
 const Router = createBrowserRouter([
