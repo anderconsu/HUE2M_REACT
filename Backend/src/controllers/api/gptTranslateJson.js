@@ -24,23 +24,18 @@ async function GptTranslation(message) {
         {"role": "user", "content": message},
     ];
     try {
-        console.log("starting call: ", message);
+        console.log("Gpt translation started, message: ", message);
         let respuesta = await openai.createChatCompletion({
             model: models[1],
             messages: messages,
             temperature: 0,
             max_tokens: 1000,
         });
-        if (respuesta){
-            console.log("hay respuesta");
-            
-        }else {
-            console.log("no hay respuesta");
-        }
         let text = respuesta.data.choices[0].message.content;
         return text;
     }catch (error) {
-        console.log("error: ", error);
+        console.log("GPT translation error: ", error);
+        return "error";
     }
 }
 

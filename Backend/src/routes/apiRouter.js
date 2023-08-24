@@ -16,7 +16,7 @@ apiRouter.get("/", (req, res) => {
 
 
 apiRouter.get("/gpt", async (req, res) => {
-    console.log("se ha llamado");
+    console.log("Gpt nutritional analisis started");
     if (req.query.message){
     let message = req.query.message;
     console.log("mensaje recibido: ", message);
@@ -32,21 +32,24 @@ apiRouter.get("/translate", async (req, res) => {
     if (!message){
         res.status(400).send("No query message");
     }
-    console.log("mensaje a traducir recibido: ", message);
     let response = await translate(message);
     if (response === "error"){
-        res.status(400).send("error in translation");
-    }else{
-        res.send(response);
+        res.status(400).send("error in google translation");
     }
+    }else{
+        console.log("Respuesta: ", response);
+        res.send(response);
     }
 });
 
 apiRouter.get("/translategpt", async (req, res) => {
+    console.log("Gpt translation selected");
     if (req.query.message){    
     let message = req.query.message;
-    console.log("mensaje recibido: ", message);
     let response = await GptTranslation(message);
+    if (response === "error"){
+        res.status(400).send("error in gpt translation");
+    }
     console.log("Respuesta: ", response);
     res.send(response);
     }else{
