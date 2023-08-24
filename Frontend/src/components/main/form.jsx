@@ -25,28 +25,37 @@ const FormIngredients = () => {
                 `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
                 );
                 console.log("ingEnglish ",ingEnglish);
-                if (ingEnglish.status === 200 ) {
-                    // If the translation is successful with the google translation in the backend
-                    let ingValue = await ingEnglish.text();
+            if (ingEnglish.status === 200 ) {
+                // If the translation is successful with the google translation in the backend
+                let ingValue = await ingEnglish.text();
+                ingEnglish = {
+                    ingrediente: ingValue,
+                    cantidad: parseInt(e.target.cantidad.value),
+                    unidad:
+                    e.target.unidad.value === "units"
+                    ? ""
+                    : e.target.unidad.value,
+                };
+            } else {
+                console.log("gpt translation selected");
+                // If the translation is not successful an entire object is passed to gpt to translate
+                ingEnglish = await fetch(
+                    `http://localhost:3006/api/translategpt/?message=${obj.ingrediente}`
+                    );
+                    let data = await ingEnglish.text();
                     ingEnglish = {
-                        ingrediente: ingValue,
+                        ingrediente: data,
                         cantidad: parseInt(e.target.cantidad.value),
                         unidad:
                         e.target.unidad.value === "units"
                         ? ""
                         : e.target.unidad.value,
                     };
-                } else {
-                    // If the translation is not successful an entire object is passed to gpt to translate
-                    ingEnglish = await fetch(
-                        `http://localhost:3006/api/translategpt/?message=${obj}`
-                        );
-                        let data = await ingEnglish.text();
-                        ingEnglish = data;
-                    }
-                    listaEnglish.push(ingEnglish);
-                    setIngListEnglish(listaEnglish);
-                } catch (error) {
+                }
+                
+                listaEnglish.push(ingEnglish);
+                setIngListEnglish(listaEnglish);
+            } catch (error) {
             console.log(error);
         }
     };

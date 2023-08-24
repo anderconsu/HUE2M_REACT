@@ -36,10 +36,9 @@ apiRouter.get("/translate", async (req, res) => {
     let response = await translate(message);
     if (response === "error"){
         res.status(400).send("error in translation");
-    }
     }else{
-        console.log("Respuesta: ", response);
         res.send(response);
+    }
     }
 });
 

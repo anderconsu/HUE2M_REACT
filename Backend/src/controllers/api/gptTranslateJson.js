@@ -13,15 +13,7 @@ const openai = new OpenAIApi(configuration);
 // Request model variables
 const models = ["gpt-4", "gpt-3.5-turbo"];
 const context = `
-Your job is to translate only one value inside "ingrediente". The sentence below gives you an example:
-Given this:
----
-{ ingrediente: leche, cantidad: 2, unidad: unit }
---- 
-You should return this:
----
-{ ingrediente: milk, cantidad: 2, unidad: unit }
----
+You only translate the word given to you. Respond only with the word you translated.
 `
 
 
