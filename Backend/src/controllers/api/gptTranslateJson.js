@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 // Request model variables
 const models = ["gpt-4", "gpt-3.5-turbo"];
 const context = `
-You only translate the word given to you. Respond only with the word you translated.
+You only translate the word given to you from spanish to English. Respond only with the word you translated.
 `
 
 
