@@ -46,7 +46,7 @@ const Register = () => {
                 // ...
             })
             .then(() => {
-                Navigate("/");
+                Navigate("/profile");
             })
             .catch((error) => {
                 // Handle Errors here.

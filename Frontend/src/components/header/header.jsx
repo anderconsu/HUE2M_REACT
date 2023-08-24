@@ -1,14 +1,15 @@
 //context import 
 import UserContext from "../../context/userContext";
-import TokenContext from "../../context/token";
 import LoggedInContext from "../../context/loggedInContext";
-
+// Scss
 import "./header.scss";
-import "../../config/firebase-config.js";
-import {useContext, useEffect, useRef} from "react";
-import {Link, useNavigate} from "react-router-dom";
 
-import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
+// React
+import {useContext} from "react";
+import {Link, useNavigate} from "react-router-dom";
+// Firebase
+import "../../config/firebase-config.js";
+import { getAuth,  signOut, GoogleAuthProvider } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
@@ -18,37 +19,12 @@ auth.useDeviceLanguage();
 
 const Header = () => {
     const Navigate = useNavigate();
-    const {token, setToken} = useContext(TokenContext); 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const toRoot = () => {
         Navigate("/");
     }
-    const loginwithGoogle =  () => {
-        signInWithPopup(auth, provider)
-            .then(async (result) => {
-                const user = result.user;
-                setUser(user);
-                let idToken = await user.getIdToken()
-                setToken(idToken)
-                setIsLoggedIn(true)
-
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential =
-                    GoogleAuthProvider.credentialFromError(error);
-                // ...
-            });
-    };
     const logOut = () => {
         try {
             localStorage.clear();
@@ -57,7 +33,7 @@ const Header = () => {
                 ).then (
                     console.log("user loged out")
                 ).then (
-                    console.log(isLoggedIn)
+                    Navigate("/")
                 );
         } catch (error) {
             console.log("error loging out :", error);
@@ -75,7 +51,7 @@ const Header = () => {
             <h1 onClick={toRoot}>HUE2M</h1>
             {isLoggedIn === true ? (
                 <nav>
-                    <p>{user.displayName}</p>
+                    <p onClick={() => {Navigate("/profile")} }>{user.displayName}</p>
                     <p onClick={logOut}>Cerrar sesión</p>
                 </nav>
                 

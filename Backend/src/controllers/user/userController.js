@@ -27,6 +27,7 @@ const addUser = async (req, res) => {
 };
 const getUser = async (req, res) => {
     try {
+        console.log("email a buscar: ", req.body.email);
         let user = await User.findOne({ email: req.body.email });
         if (!user) {
             res.status(404).send();

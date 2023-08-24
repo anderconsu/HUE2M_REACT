@@ -5,16 +5,7 @@ import UserContext from "../../context/userContext";
 import IsDataContext from "../../context/isData";
 
 // Diccionario de condiciones
-const conditionDictionary = {
-    celiac: "celiaquia",
-    diabetes: "diabetes",
-    hypertension: "hipertension",
-    highColestherol: "colesterol alto",
-    lactoseintolerant: "intolerancia a la lactosa",
-    nutA: "alergia a los frutos secos",
-    eggA: "alergia a los huevos",
-    sojaA: "alergia a la soja"
-}
+import conditDict from "../user/conditDict";
 
 const GptForm = () => {
     const { user, setUser } = useContext(UserContext); 
@@ -38,7 +29,9 @@ const GptForm = () => {
             const currentTime = now.toLocaleTimeString()
             //
             //  get name (age, gender, weight, food preference and height) 
-            let name = user.displayName
+            const usuario = user
+            let name = usuario.displayName
+            
             let userData = {}
             try {
                 const response = await fetch("http://localhost:3006/user/get", {
@@ -46,7 +39,7 @@ const GptForm = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({email: user.email})   
+                body: JSON.stringify({email: usuario.email})   
                 });
                 if (!response.ok) {
                     console.log(response);
@@ -78,7 +71,7 @@ const GptForm = () => {
             const heightMessage = height ? `, mido ${height / 100}m` : "";
             const weightMessage = weight ? `, peso ${weight}Kg` : "";
             const foodPreferenceMessage = foodPreference ? `, soy ${foodPreference}` : "";
-            let conditionMessage = condition ? condition.map((con) => ` ${conditionDictionary[con]},`) : "";
+            let conditionMessage = condition ? condition.map((con) => ` ${conditDict[con]},`) : "";
             if (conditionMessage){
                 conditionMessage = conditionMessage.join("");
                 conditionMessage = ` y tengo las siguientes condiciones medicas:${conditionMessage}.`
