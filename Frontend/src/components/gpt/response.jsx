@@ -37,7 +37,7 @@ const GptForm = () => {
             const ingListMessage = await ingList.map((ing) => `${ing.cantidad}${ing.unidad} de ${ing.ingrediente}`);
             const currentTime = now.toLocaleTimeString()
             //
-            // TODO: get name (age, gender, weight, food preference and height) 
+            //  get name (age, gender, weight, food preference and height) 
             let name = user.displayName
             let userData = {}
             try {
@@ -85,7 +85,30 @@ const GptForm = () => {
             }
 
             // Message
-            let message = `Hola, me llamo ${name}${sexMessage}${ageMessage}${heightMessage}${weightMessage}${foodPreferenceMessage}${conditionMessage}, son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer. He comido los siguientes ingredientes: --- ${ingListMessage.join(", ")} --- los cuales tienen los siguientes valores nutricionales:--- ${formattedData.join(", ")} --- respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma y recomendaciones para mejorarla. Si crees que todavia tengo una comida por hacer en el dia, recomiendame que comer.`;
+            let message = `Hola, me llamo ${name}${sexMessage}${ageMessage}${heightMessage}${weightMessage}${foodPreferenceMessage}${conditionMessage}. 
+Son las (${currentTime}), ten en cuenta que depende de la hora, puede que me quede alguna comida mas por hacer tanto la comida como la cena.
+He comido los siguientes ingredientes: 
+--- ${ingListMessage.join(", ")} --- 
+los cuales tienen los siguientes valores nutricionales:
+--- ${formattedData.join(", ")} ---.
+Respondeme diciendome que te parece la ingesta de hoy, si deberia controlar algo de la misma  y recomendaciones para mejorarla dados mis datos personales con el siguiente formato:
+___
+¿Que te parece la ingesta de hoy?.
+¿Deberia controlar algo?.
+Recomendaciones para mejorarla.
+___
+En base a la hora propocionada y los ingredientes consumidos, decidelas comidas que he llegado a completar (desayuno, comida, cena), recomiendame algo que comer en cada una de las comidas que no haya completado y evalua las que si. Ten en cuenta lo que ya he comido y lo que me vendria mejor teniendo en cuenta que si recomiendas varias ingestas, su totalidad siga siendo saludable en base a mis datos. 
+Formalo la siguiente manera:
+___
+- Desayuno:
+recomendacion
+- Comida:
+recomendacion 
+- Cena:
+recomendacion
+___
+No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero que te haya sido útil. ¡Sigue cuidando tu salud!"
+.`;
             console.log(message);
             // Loading
             setLoading(true);

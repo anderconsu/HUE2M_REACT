@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 // Request model variables
 const models = ["gpt-4", "gpt-3.5-turbo"];
-const context = "Eres un nutricionista experto en la nutricion y la alimentacion.";
+const context = "Eres un nutricionista experto en la nutricion y la alimentacion. Buscas mejorar la salud de tus clientes. Te diriges a la gente por su nombre. No te despidas ofreciendo mas ayuda..";
 
 
 

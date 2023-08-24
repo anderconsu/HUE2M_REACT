@@ -19,6 +19,7 @@ const FormIngredients = () => {
         lista.push(obj);
         setIngList(lista);
         
+        // TODO: block submit button while translating
         // The value of ingrediente is translated and an alternative object is created and pushed to the alternative array to be compatible with edamam
         try {
             let ingEnglish = await fetch(
