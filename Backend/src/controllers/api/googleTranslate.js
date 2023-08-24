@@ -2,12 +2,16 @@ import { translate } from '@vitalets/google-translate-api';
 
 
 const translation = async (text, lang = 'es') => {
-    console.log("google translation started, message: ", text);
+    console.log("Google translation started, message: ", text);
     try {
         const response = await translate(text, { to: 'en', from: lang });
         return response.text; 
     } catch (error) {
-        console.error('Translation error:', error);
+        if(error.name === 'TooManyRequestsError'){
+            console.log("!! Google: too many requests");
+        }else{
+            console.error('!! Translation error:', error);
+        }
         return "error";
     }
 }

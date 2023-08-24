@@ -34,7 +34,7 @@ async function GptTranslation(message) {
         let text = respuesta.data.choices[0].message.content;
         return text;
     }catch (error) {
-        console.log("GPT translation error: ", error);
+        console.log("!! GPT translation error: ", error);
         return "error";
     }
 }
