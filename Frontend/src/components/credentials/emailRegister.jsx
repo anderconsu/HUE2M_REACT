@@ -28,7 +28,7 @@ const EmailRegister = () => {
                 // ...
             }) 
             .then(() => {
-                Navigate("/");  
+                Navigate("/profile");  
             })
             .catch((error) => {
                 const errorCode = error.code;
