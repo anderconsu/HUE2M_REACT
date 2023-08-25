@@ -22,4 +22,12 @@ userRouter.post("/get", async (req, res) => {
         res.status(400).send(error);
     }
 })
+userRouter.post("/update", async (req, res) => {
+    try{
+        userController.updateUser(req, res);
+    }
+    catch(error){
+        res.status(400).send(error);
+    }
+})
 export default userRouter

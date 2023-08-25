@@ -39,4 +39,25 @@ const getUser = async (req, res) => {
         res.status(400).json(error);
     }
 };
-export default { addUser, getUser };
+const updateUser = async (req, res) => {
+    console.log("usuario a actualizar: ", req.body.email);
+    let user = {email: req.body.email};
+    user.height = req.body.height;
+    user.weight = req.body.weight;
+    user.birthday = req.body.birthday;
+    user.sex = req.body.sex;
+    user.foodPreference = req.body.foodPreference;
+    user.condition = req.body.condition;
+    try {
+        let updateUser = await User.findOneAndUpdate({ email: user.email }, user );
+        if (!updateUser) {
+            res.status(404).send();
+        }else{
+            res.status(200).send();
+        }
+    } catch (error) {
+        console.log("error en getUser", error);
+        res.status(400).send();
+    }
+}
+export default { addUser, getUser, updateUser };

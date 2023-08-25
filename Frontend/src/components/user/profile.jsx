@@ -1,6 +1,6 @@
 // React
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import ProfileCreate from "./profilecreate";
 
@@ -89,7 +89,7 @@ const Profile = () => {
                         ))}
                     </ul>                     
                     )}
-                    
+                    <Link to="/profile/update">Editar perfil</Link>
                 </article>
             </section>  
         )
