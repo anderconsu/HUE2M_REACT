@@ -1,12 +1,18 @@
-import { useState, useEffect } from "react";
+// React
+import { useState, useEffect, useContext } from "react";
 import NutValues from "./nutValues";
+// Context
+import UserContext from "../../context/userContext";
+import { Link } from "react-router-dom";
 
 const FormIngredients = () => {
     // * Pre function variables
     const [blockSubmit, setBlockSubmit] = useState(false);
-
+    const [error, setError] = useState("");
+    const { user } = useContext(UserContext);
+    const [dbUser, setDbUser] = useState(false);
+    
     // * Functions
-
     // Add form ingredients to lists
     const addToList = async (e) => {
         e.preventDefault();
@@ -22,8 +28,6 @@ const FormIngredients = () => {
         };
         lista.push(obj);
         setIngList(lista);
-        
-        // TODO: block submit button while translating
         // The value of ingrediente is translated and an alternative object is created and pushed to the alternative array to be compatible with edamam
         try {
             let ingEnglish = await fetch(
@@ -116,6 +120,31 @@ const FormIngredients = () => {
             return ingList;
         }
     }
+    // Check user data before rendering
+    const getUserData = async () => {
+        let usuario = user
+        try {
+            const response = await fetch("http://localhost:3006/user/get", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email: usuario.email})   
+            });
+            if (!response.ok) {
+                console.log(response);
+                if (response.status === 404) {
+                    setError("No hay datos de tu usuario. Por favor completa el perfil primero.")
+                    return
+                }
+            }
+            
+        } catch (error) {
+            console.log("error en getUser", error);
+            return
+        }
+        setDbUser(true);
+    }
 
     //* Variable declaration
     const [ingList, setIngList] = useState(getListFromLocalStorage());
@@ -123,6 +152,9 @@ const FormIngredients = () => {
     const [edamamData, setEdamamData] = useState({});
 
     //* UseEffects
+    useEffect(() => {
+        getUserData();
+    }, []);
 
     // Add to localstorage
     useEffect(() => {
@@ -131,6 +163,15 @@ const FormIngredients = () => {
     useEffect(() => {
         localStorage.setItem("ingListEnglish", JSON.stringify(ingListEnglish));
     }, [ingListEnglish]);
+
+    if (!dbUser) {
+        return (
+            <section className="noDbUser">
+                {error ? <article className="incompleteProfile"><p>{error} </p> <Link to="/profile">Completar perfil</Link></article> : <p>Cargando...</p>}
+            </section>
+            )
+        } else {
+
     return (
         <div className="IngredientList">
             <form onSubmit={addToList}>
@@ -193,6 +234,7 @@ const FormIngredients = () => {
             ) : null}
         </div>
     );
+            }
 };
 
 export default FormIngredients;
