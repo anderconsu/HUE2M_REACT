@@ -77,11 +77,15 @@ const FormIngredients = () => {
             });
             url.searchParams.set("message", ingredients);
             console.log(ingredients);
-        let response = await fetch(url);
-        let data = await response.json();
-        setEdamamData(data);
-        console.log(data);
-        console.log(data.totalNutrients);
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+            setEdamamData(data);
+            console.log(data);
+            console.log(data.totalNutrients);
+        } catch (error) {
+            console.log("getEdamamData error: ", error);
+        }
     };
 
     // Delete items from ingList too
