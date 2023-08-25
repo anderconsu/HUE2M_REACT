@@ -154,7 +154,7 @@ const FormIngredients = () => {
                     <option value="g">Gramos</option>
                     <option value="kg">Kilogramos</option>
                 </select>
-                <button type="submit">Añadir</button>
+                <button type="submit" disabled={blockSubmit}>Añadir</button>
             </form>
             <ul>
                 {ingList.map((ing, index) => (
