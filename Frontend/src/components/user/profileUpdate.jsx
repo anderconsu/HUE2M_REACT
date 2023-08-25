@@ -1,5 +1,5 @@
 // React
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom"
 
 // Context
@@ -14,6 +14,34 @@ const ProfileUpdate = () => {
     const navigate = useNavigate();
     const {user} = useContext(UserContext);
     const [error, setError] = useState("");
+    const [userData, setUserData] = useState({});
+    const getUser = async () => {
+        let usuario = user;
+        if (usuario.email) {
+            try {
+                const response = await fetch("http://localhost:3006/user/get", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email: usuario.email }),
+                });
+                if (response.ok) {
+                    let data = await response.json();
+                    console.log("dbuser:", data);
+                    setUserData(data);
+                }else if (response.statusText === "Not Found") {
+                    navigate("/profile");
+                } 
+                else {
+                    console.log("error en getUser (profile.jsx)", response);
+                }
+            } catch (error) {
+                console.log("error en getUser", error);
+                return;
+            }
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("")
@@ -58,28 +86,34 @@ const ProfileUpdate = () => {
             }
         }
     }
+
+    useEffect(() => {
+        getUser()
+    }, [user]);
+
     return (
         <section className="profileUpdate">
             <h3>Modifica tu perfil tu perfil</h3>
             <form action="POST" onSubmit={handleSubmit}>
                 <label htmlFor="birthday">Fecha de nacimiento</label>
-                <input type="date" id="birthday"/>
+                <input type="date" id="birthday" defaultValue={userData.birthday}/>
                 <label htmlFor="height">Altura en cm</label>
-                <input type="number" id="height" min={1} max={250}/>
+                <input type="number" id="height" min={1} max={250} defaultValue={userData.height}/>
                 <label htmlFor="weight">Peso en Kg</label>
-                <input type="number" id="weight" min={1} max={350}/>
+                <input type="number" id="weight" min={1} max={350} defaultValue={userData.weight}/>
                 <label htmlFor="sex">Sexo biológico</label>
-                <select id="sex">
+                <select id="sex" defaultValue={userData.sex}>
                     <option value="0">Prefiero no especificar</option>
                     <option value="M">Macho</option>
                     <option value="H">Hembra</option>
                 </select>
                 <label htmlFor="foodPreference">Preferencias de dieta</label>
-                <select id="foodPreference">
+                <select id="foodPreference" defaultValue={userData.foodPreference}>
                     <option value="0">Omnívoro</option>
                     <option value="Vege">Vegetariano</option>
                     <option value="Vega">Vegano</option>
                 </select>
+                // TODO: Add conditions from userData (fix select)
                 <article className="conditions">
                     <p>Condiciones alimenticias</p>
                     <label htmlFor="celiac">Celiaquia</label>
