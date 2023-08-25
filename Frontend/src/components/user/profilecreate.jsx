@@ -60,6 +60,7 @@ const ProfileCreate = () => {
         <section className="profileCreation">
             <h3>Crea tu perfil</h3>
             <p>Necesitamos un poco de información para poder ofrecer mejores recomendaciones nutricionales, todas las opciones son opcionales, pero mejoran los resultados.</p>
+            <p> *Si no deseas introducir ningún dato, selecciona "Confirmar datos"sin rellenar ningún campo*</p>
             <form action="POST" onSubmit={handleSubmit}>
                 <label htmlFor="birthday">Fecha de nacimiento</label>
                 <input type="date" id="birthday"/>
