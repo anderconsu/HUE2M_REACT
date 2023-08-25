@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import NutValues from "./nutValues";
 
 const FormIngredients = () => {
+    // * Pre function variables
+    const [blockSubmit, setBlockSubmit] = useState(false);
+
     // * Functions
 
     // Add form ingredients to lists
     const addToList = async (e) => {
         e.preventDefault();
+        setBlockSubmit(true);
         const lista = [...ingList];
         const listaEnglish = [...ingListEnglish];
         
@@ -59,6 +63,7 @@ const FormIngredients = () => {
             } catch (error) {
             console.log(error);
         }
+        setBlockSubmit(false);
     };
     
     // Get data from edamam

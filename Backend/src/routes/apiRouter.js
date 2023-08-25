@@ -33,13 +33,14 @@ apiRouter.get("/translate", async (req, res) => {
         res.status(400).send("No query message");
     }
     let response = await translate(message);
+    console.log("Google router response", response);
     if (response === "error"){
         res.status(400).send("error in google translation");
     }
-    }else{
+    else{
         console.log("Respuesta: ", response);
         res.send(response);
-    }
+    }}
 });
 
 apiRouter.get("/translategpt", async (req, res) => {
