@@ -8,7 +8,7 @@ import IsDataContext from "../../context/isData";
 import conditDict from "../user/conditDict";
 
 const GptForm = () => {
-    const { user, setUser } = useContext(UserContext); 
+    const { user } = useContext(UserContext); 
     const {isData, setIsData} = useContext(IsDataContext);
     const [response, setResponse] = useState("");
     const [loading, setLoading] = useState(false);
@@ -34,6 +34,7 @@ const GptForm = () => {
             
             let userData = {}
             try {
+                console.log(user.accessToken);
                 const response = await fetch("http://localhost:3006/user/get", {
                 method: "POST",
                 headers: {

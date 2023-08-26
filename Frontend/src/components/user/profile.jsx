@@ -7,11 +7,13 @@ import ProfileCreate from "./profilecreate";
 
 // Context
 import UserContext from "../../context/userContext";
+import TokenContext from "../../context/token";
 // Dictionary
 import conditDict from "./conditDict";
 const Profile = () => {
     let [userData, setUserData] = useState(null);
     const { user } = useContext(UserContext);
+    const { token } = useContext(TokenContext);
     const navigate = useNavigate();
     const getUser = async () => {
         let usuario = user;
@@ -21,6 +23,7 @@ const Profile = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": token,
                     },
                     body: JSON.stringify({ email: usuario.email }),
                 });
@@ -29,7 +32,9 @@ const Profile = () => {
                     setUserData(data);
                 }else if (response.statusText === "Not Found") {
                     setUserData("ND");
-                } 
+                } else if (response.statusText === "Unauthorized") {
+                    setUserData("error");
+                }
                 else {
                     console.log("error en getUser (profile.jsx)", response);
                 }
@@ -40,11 +45,13 @@ const Profile = () => {
         }
     };
     useEffect(() => {
-        if (user) {
+        if (user && token) {
             getUser();
         }
-    }, [user]);
-    
+    }, [user, token]);
+    if (userData === "error") {
+        return <p>Se ha producido un error al obtener los datos</p>;
+    }
     if (userData === "ND") {
         return <ProfileCreate/>
     }else {

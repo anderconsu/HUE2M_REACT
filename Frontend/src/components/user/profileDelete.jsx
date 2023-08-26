@@ -17,6 +17,7 @@ const ProfileDelete = () => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": user.accessToken,
                 },
                 body: JSON.stringify({ email: user.email }),
             });

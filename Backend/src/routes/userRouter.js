@@ -1,6 +1,6 @@
 import { Router } from "express";
 import userController from "../controllers/user/userController.js";
-
+import authMiddleware from "../Middleware/authMiddleware.js";
 const userRouter = Router();
 userRouter.get("/", (req, res) => {
     res.status(200).send("From here after there are user routes");

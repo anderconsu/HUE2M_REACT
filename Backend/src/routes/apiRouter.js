@@ -1,4 +1,6 @@
 import { Router } from "express";
+import authMiddleware from "../Middleware/authMiddleware.js";
+
 
 import getIngredientsData from "../controllers/api/edamam_getData.js";
 import GptCall from "../controllers/api/openapi.js";
