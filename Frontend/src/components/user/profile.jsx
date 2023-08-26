@@ -90,6 +90,7 @@ const Profile = () => {
                     </ul>                     
                     )}
                     <Link to="/profile/update">Editar perfil</Link>
+                    <Link to="/profile/delete">Eliminar perfil</Link>
                 </article>
             </section>  
         )

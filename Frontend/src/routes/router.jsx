@@ -10,7 +10,7 @@ import EmailLogin from "../components/credentials/emailLogin.jsx";
 import Form from "../components/main/form.jsx";
 import Profile from "../components/user/profile.jsx";
 import ProfileUpdate from "../components/user/profileUpdate.jsx";
-
+import ProfileDelete from "../components/user/profileDelete.jsx";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -48,6 +48,10 @@ const Router = createBrowserRouter([
             {
                 path:"/profile/update",
                 element:<ProfileUpdate/>
+            },
+            {
+                path:"/profile/delete",
+                element:<ProfileDelete/>
             }
         ]         
     }

@@ -30,4 +30,12 @@ userRouter.post("/update", async (req, res) => {
         res.status(400).send(error);
     }
 })
+userRouter.delete("/delete", async (req, res) => {
+    try{
+        userController.deleteUser(req, res);
+    }
+    catch(error){
+        res.status(400).send(error);
+    }
+})
 export default userRouter

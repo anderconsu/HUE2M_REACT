@@ -61,4 +61,20 @@ const updateUser = async (req, res) => {
         res.status(400).send();
     }
 }
-export default { addUser, getUser, updateUser };
+
+const deleteUser = async (req, res) => {
+    console.log("usuario a eliminar: ", req.body.email);
+    let user = {email: req.body.email};
+    try {
+        let deleteUser = await User.findOneAndDelete({ email: user.email });
+        if (!deleteUser) {
+            res.status(404).send();
+        }else{
+            res.status(200).send();
+        }
+    } catch (error) {
+        console.log("error en deleteUser", error);
+        res.status(400).send();
+    }
+}
+export default { addUser, getUser, updateUser, deleteUser };
