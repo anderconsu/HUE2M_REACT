@@ -9,7 +9,6 @@ const conditionArray = [
     "celiac", "diabetes", "hypertension", "highColestherol", "lactoseintolerant", "nutA", "eggA", "sojaA"
 ]
 
-
 const ProfileUpdate = () => {
     const navigate = useNavigate();
     const {user} = useContext(UserContext);
@@ -113,25 +112,24 @@ const ProfileUpdate = () => {
                     <option value="Vege">Vegetariano</option>
                     <option value="Vega">Vegano</option>
                 </select>
-                // TODO: Add conditions from userData (fix select)
                 <article className="conditions">
                     <p>Condiciones alimenticias</p>
                     <label htmlFor="celiac">Celiaquia</label>
-                    <input type="checkbox" value={"celiac"} id={"celiac"} />
+                    <input type="checkbox" value={"celiac"} id={"celiac"} checked={ userData.condition ? userData.condition.includes("celiac"): false}/>
                     <label htmlFor="diabetes">Diabetes</label>
-                    <input type="checkbox" value={"diabetes"} id={"diabetes"} />
+                    <input type="checkbox" value={"diabetes"} id={"diabetes"} checked={ userData.condition ? userData.condition.includes("diabetes"): false}/>
                     <label htmlFor="hypertension">Hipertensión</label>
-                    <input type="checkbox" value={"hypertension"} id={"hypertension"} />
+                    <input type="checkbox" value={"hypertension"} id={"hypertension"} checked={ userData.condition ? userData.condition.includes("hypertension"): false} />
                     <label htmlFor="highColestherol">Colesterol alto</label>
-                    <input type="checkbox" value={"highColestherol"} id={"highColestherol"} />
+                    <input type="checkbox" value={"highColestherol"} id={"highColestherol"} checked={ userData.condition ? userData.condition.includes("highColestherol"): false}/>
                     <label htmlFor="lactoseintolerant"> Intolerancia al lactosa</label>
-                    <input type="checkbox" value={"lactoseintolerant"} id={"lactoseintolerant"} />
+                    <input type="checkbox" value={"lactoseintolerant"} id={"lactoseintolerant"} checked={ userData.condition ? userData.condition.includes("lactoseintolerant"): false} />
                     <label htmlFor="nutA">Alergia a los frutos secos</label>
-                    <input type="checkbox" value={"nutA"} id={"nutA"} />
+                    <input type="checkbox" value={"nutA"} id={"nutA"} checked={ userData.condition ? userData.condition.includes("nutA"): false} />
                     <label htmlFor="eggA">Alergia a los huevos</label>
-                    <input type="checkbox" value={"eggA"} id={"eggA"} />
+                    <input type="checkbox" value={"eggA"} id={"eggA"} checked={ userData.condition ? userData.condition.includes("eggA"): false} />
                     <label htmlFor="sojaA">Alergia a la soja</label>
-                    <input type="checkbox" value={"sojaA"} id={"sojaA"} />
+                    <input type="checkbox" value={"sojaA"} id={"sojaA"} checked={ userData.condition ? userData.condition.includes("sojaA"): false} />
                 </article>
                 <button type="submit">Confirmar datos</button>
             </form>

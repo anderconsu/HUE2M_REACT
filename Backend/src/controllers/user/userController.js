@@ -32,6 +32,7 @@ const getUser = async (req, res) => {
         if (!user) {
             res.status(404).send();
         }else{
+            console.log("usuario encontrado");
             res.status(200).json(user);
         }
     } catch (error) {
