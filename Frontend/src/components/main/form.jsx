@@ -1,3 +1,6 @@
+//scss
+import "./css/form.scss";
+
 // React
 import { useState, useEffect, useContext } from "react";
 import NutValues from "./nutValues";
@@ -11,7 +14,7 @@ const FormIngredients = () => {
     const [error, setError] = useState("");
     const { user } = useContext(UserContext);
     const [dbUser, setDbUser] = useState(false);
-    
+
     // * Functions
     // Add form ingredients to lists
     const addToList = async (e) => {
@@ -19,7 +22,7 @@ const FormIngredients = () => {
         setBlockSubmit(true);
         const lista = [...ingList];
         const listaEnglish = [...ingListEnglish];
-        
+
         // An object is created to store the ingredient, the quantity and the unit. Then is pushed to the array and setted to the state
         const obj = {
             ingrediente: e.target.ingredientes.value,
@@ -32,44 +35,44 @@ const FormIngredients = () => {
         try {
             let ingEnglish = await fetch(
                 `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
-                );
-                console.log("ingEnglish ",ingEnglish);
-            if (ingEnglish.status === 200 ) {
+            );
+            console.log("ingEnglish ", ingEnglish);
+            if (ingEnglish.status === 200) {
                 // If the translation is successful with the google translation in the backend
                 let ingValue = await ingEnglish.text();
                 ingEnglish = {
                     ingrediente: ingValue,
                     cantidad: parseInt(e.target.cantidad.value),
                     unidad:
-                    e.target.unidad.value === "units"
-                    ? ""
-                    : e.target.unidad.value,
+                        e.target.unidad.value === "units"
+                            ? ""
+                            : e.target.unidad.value,
                 };
             } else {
                 console.log("gpt translation selected");
                 // If the translation is not successful an entire object is passed to gpt to translate
                 ingEnglish = await fetch(
                     `http://localhost:3006/api/translategpt/?message=${obj.ingrediente}`
-                    );
-                    let data = await ingEnglish.text();
-                    ingEnglish = {
-                        ingrediente: data,
-                        cantidad: parseInt(e.target.cantidad.value),
-                        unidad:
+                );
+                let data = await ingEnglish.text();
+                ingEnglish = {
+                    ingrediente: data,
+                    cantidad: parseInt(e.target.cantidad.value),
+                    unidad:
                         e.target.unidad.value === "units"
-                        ? ""
-                        : e.target.unidad.value,
-                    };
-                }
-                
-                listaEnglish.push(ingEnglish);
-                setIngListEnglish(listaEnglish);
-            } catch (error) {
+                            ? ""
+                            : e.target.unidad.value,
+                };
+            }
+
+            listaEnglish.push(ingEnglish);
+            setIngListEnglish(listaEnglish);
+        } catch (error) {
             console.log(error);
         }
         setBlockSubmit(false);
     };
-    
+
     // Get data from edamam
     const getEdamamData = async () => {
         let ingredients = [];
@@ -77,10 +80,10 @@ const FormIngredients = () => {
         ingListEnglish.forEach((ing) => {
             ingredients.push(
                 `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
-                );
-            });
-            url.searchParams.set("message", ingredients);
-            console.log(ingredients);
+            );
+        });
+        url.searchParams.set("message", ingredients);
+        console.log(ingredients);
         try {
             let response = await fetch(url);
             let data = await response.json();
@@ -102,7 +105,6 @@ const FormIngredients = () => {
         setIngListEnglish(engLista);
     };
 
-    
     // Get ingList from local storage
     const getListFromLocalStorage = () => {
         let ingList = JSON.parse(localStorage.getItem("ingList"));
@@ -119,36 +121,39 @@ const FormIngredients = () => {
         } else {
             return ingList;
         }
-    }
+    };
     // Check user data before rendering
     const getUserData = async () => {
-        let usuario = user
+        let usuario = user;
         try {
             const response = await fetch("http://localhost:3006/user/get", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({email: usuario.email})   
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: usuario.email }),
             });
             if (!response.ok) {
                 console.log(response);
                 if (response.status === 404) {
-                    setError("No hay datos de tu usuario. Por favor completa el perfil primero.")
-                    return
+                    setError(
+                        "No hay datos de tu usuario. Por favor completa el perfil primero."
+                    );
+                    return;
                 }
             }
-            
         } catch (error) {
             console.log("error en getUser", error);
-            return
+            return;
         }
         setDbUser(true);
-    }
+    };
 
     //* Variable declaration
     const [ingList, setIngList] = useState(getListFromLocalStorage());
-    const [ingListEnglish, setIngListEnglish] = useState(getEnglishListFromLocalStorage);
+    const [ingListEnglish, setIngListEnglish] = useState(
+        getEnglishListFromLocalStorage
+    );
     const [edamamData, setEdamamData] = useState({});
 
     //* UseEffects
@@ -167,74 +172,95 @@ const FormIngredients = () => {
     if (!dbUser) {
         return (
             <section className="noDbUser">
-                {error ? <article className="incompleteProfile"><p>{error} </p> <Link to="/profile">Completar perfil</Link></article> : <p>Cargando...</p>}
+                {error ? (
+                    <article className="incompleteProfile">
+                        <p>{error} </p>{" "}
+                        <Link to="/profile">Completar perfil</Link>
+                    </article>
+                ) : (
+                    <p>Cargando...</p>
+                )}
             </section>
-            )
-        } else {
+        );
+    } else {
+        return (
+            <section className="IngredientList">
+                <article className="text">
+                    <h2>
+                        Añade la comida que has consumido en un dia completo.
+                    </h2>
+                    <p>
+                        Te recomendamos, hacerlo una vez ya hayas completado
+                        todas las comidas.
+                    </p>
+                </article>
+                <form onSubmit={addToList}>
+                    <div className="units">
+                        <input
+                            type="number"
+                            name="cantidad"
+                            id="cantidad"
+                            min="1"
+                            max="1000"
+                            defaultValue="1"
+                        />
+                        <select name="unidad" id="unidad">
+                            <option value="units">Unidad(es)</option>
+                            <option value="plate">Plato</option>
+                            <option value="l">Litros</option>
+                            <option value="ml">Mililitros</option>
+                            <option value="mg">Miligramos</option>
+                            <option value="g">Gramos</option>
+                            <option value="kg">Kilogramos</option>
+                        </select>
+                    </div>
+                    <input
+                        autoFocus
+                        name="ingredientes"
+                        id="ingredientes"
+                        placeholder="Ingrediente"
+                    />
+                    <button type="submit" disabled={blockSubmit}>
+                        Añadir
+                    </button>
+                </form>
+                {edamamData === 555 ? (
+                    <p>Hay un error al cotejar uno o varios ingredientes.</p>
+                ) : null}
+                <ul>
+                    {ingList.map((ing, index) => (
+                        <li key={index}>
+                            {`${ing.ingrediente} - ${ing.cantidad} ${
+                                ing.unidad === "units"
+                                    ? "Unidad(es)"
+                                    : ing.unidad === "plate"
+                                    ? "Plato(s)"
+                                    : ing.unidad
+                            }`}
+                            <button
+                                className="eliminarButton"
+                                onClick={() => delFromList(index)}
+                            >
+                                X
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <button
+                    className="calcular"
+                    type="button"
+                    onClick={getEdamamData}
+                    disabled={ingListEnglish.lenght === 0 ? true : false}
+                >
+                    Calcular
+                </button>
 
-    return (
-        <div className="IngredientList">
-            <form onSubmit={addToList}>
-                <h2>Añade la comida que has consumido en un dia completo.</h2>
-                <input
-                    autoFocus
-                    name="ingredientes"
-                    id="ingredientes"
-                    placeholder="Ingrediente"
-                />
-                <input
-                    type="number"
-                    name="cantidad"
-                    id="cantidad"
-                    min="1"
-                    max="1000"
-                    defaultValue="1"
-                />
-                <select name="unidad" id="unidad">
-                    <option value="units">Unidad(es)</option>
-                    <option value="plate">Plato</option>
-                    <option value="l">Litros</option>
-                    <option value="ml">Mililitros</option>
-                    <option value="mg">Miligramos</option>
-                    <option value="g">Gramos</option>
-                    <option value="kg">Kilogramos</option>
-                </select>
-                <button type="submit" disabled={blockSubmit}>Añadir</button>
-            </form>
-            <ul>
-                {ingList.map((ing, index) => (
-                    <li key={index}>
-                        {`${ing.ingrediente} - ${ing.cantidad} ${
-                            ing.unidad === "units"
-                                ? "Unidad(es)"
-                                : ing.unidad === "plate"
-                                ? "Plato(s)"
-                                : ing.unidad
-                        }`}
-                        <button
-                            className="eliminarButton"
-                            onClick={() => delFromList(index)}
-                        >
-                            Eliminar
-                        </button>
-                    </li>
-                ))}
-            </ul>
-            <button className="calcular" type="button" onClick={getEdamamData}>
-                Calcular
-            </button>
-            
-            {edamamData?.totalNutrients && (
-                <NutValues edamamData={edamamData}>
-                </NutValues>
-            )}
-
-            {edamamData === 555 ? (
-                <p>Hay un error al cotejar uno o varios ingredientes.</p>
-            ) : null}
-        </div>
-    );
-            }
+                {edamamData?.totalNutrients && (
+                    <NutValues edamamData={edamamData}></NutValues>
+                )}
+            </section>
+        );
+    }
 };
 
 export default FormIngredients;
