@@ -1,3 +1,5 @@
+//scss
+import "./scss/login.scss";
 //context import
 import UserContext from "../../context/userContext";
 import TokenContext from "../../context/token";
@@ -59,6 +61,8 @@ const Login = () => {
                     );
                 } else if (errorCode === "auth/user-cancelled") {
                     setFirebaseError("El login fue cancelado");
+                }else if (errorCode === "auth/popup-closed-by-user") {
+                    setFirebaseError("Se ha cerrado el pop-up del login");
                 } else {
                     setFirebaseError(errorCode);
                 }
@@ -73,30 +77,32 @@ const Login = () => {
             });
     };
     return (
-        <section>
-            <h2>LOGIN</h2>
-            <article>
-                <Link to="/login/email">Email</Link>
-            </article>
-            <article>
-                <p
-                    onClick={() => {
-                        loginwithGoogle(provider);
-                    }}
-                >
-                    Google
-                </p>
-            </article>
-            <article>
-                <p
-                    onClick={() => {
-                        loginwithGoogle(gitProvider);
-                    }}
-                >
-                    Github
-                </p>
-            </article>
-            {firebaseError && <p>{firebaseError}</p>}
+        <section className="login">
+            <h2>Inicia sesión</h2>
+            <section className="providers">
+                <article>
+                    <Link to="/login/email">Email</Link>
+                </article>
+                <article>
+                    <p
+                        onClick={() => {
+                            loginwithGoogle(provider);
+                        }}
+                    >
+                        Google
+                    </p>
+                </article>
+                <article>
+                    <p
+                        onClick={() => {
+                            loginwithGoogle(gitProvider);
+                        }}
+                    >
+                        Github
+                    </p>
+                </article>
+            </section>
+            {firebaseError && <p className="errorFirebase">{firebaseError}</p>}
         </section>
     );
 };

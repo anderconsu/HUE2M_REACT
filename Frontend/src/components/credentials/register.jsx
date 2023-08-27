@@ -1,3 +1,6 @@
+//scss
+import "./scss/login.scss";
+
 //context import
 import UserContext from "../../context/userContext";
 import TokenContext from "../../context/token";
@@ -74,7 +77,9 @@ const Register = () => {
     };
     return (
         <section className="register">
-            <h3>Registro</h3>
+            <h2>Registro</h2>
+            <section className="providers">
+
             <article>
                 <Link to="/register/email">Email</Link>
             </article>
@@ -96,6 +101,7 @@ const Register = () => {
                     Github
                 </p>
             </article>
+            </section>
             {firebaseError && <p>{firebaseError}</p>}
         </section>
     );

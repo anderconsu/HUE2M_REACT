@@ -1,3 +1,6 @@
+//scss
+import "./scss/email.scss";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../config/firebase-config.js";
@@ -51,8 +54,8 @@ const EmailLogin = () => {
 
     return (
         <section className="register">
-            <h1>Email Login</h1>
-            <form onSubmit={handleSubmit}>
+            <h3>Logeate con tu email</h3>
+            <form onSubmit={handleSubmit} className="loginForm">
                 <label htmlFor="emailLogin">Email</label>
                 <input
                     type="text"
@@ -70,7 +73,7 @@ const EmailLogin = () => {
                 <button type="submit">Login</button>
             </form>
             <section className="errors">
-                {firebaseError && <p>{firebaseError}</p>}
+                {firebaseError && <p className="errorFirebase error">{firebaseError}</p>}
             </section>
         </section>
     );

@@ -1,10 +1,16 @@
+//scss
+import "./scss/email.scss";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../config/firebase-config.js";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+} from "firebase/auth";
 const auth = getAuth();
-
 
 // regex
 const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -24,11 +30,11 @@ const EmailRegister = () => {
             .then((userCredential) => {
                 // Signed in
                 user = userCredential.user;
-                updateProfile(user, {displayName: name.toString()})
+                updateProfile(user, { displayName: name.toString() });
                 // ...
-            }) 
+            })
             .then(() => {
-                Navigate("/profile");  
+                Navigate("/profile");
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -90,43 +96,59 @@ const EmailRegister = () => {
     }, [email, password, repassword]);
     return (
         <section className="register">
-            <h1>Email Register</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="emailRegister">Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    id="emailRegister"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <label htmlFor="nameRegister">Nombre</label>
-                <input type="text" name="name" id="nameRegister" maxLength={30} onChange={(e) => setName(e.target.value)} />
-                <label htmlFor="passwordRegister">Contraseña</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="passwordRegister"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <label htmlFor="repasswordRegister">Repetir contraseña</label>
-                <input
-                    type="password"
-                    name="repassword"
-                    id="repasswordRegister"
-                    onChange={(e) => setRePassword(e.target.value)}
-                />
+            <h3>Registra tu email</h3>
+            <form onSubmit={handleSubmit} className="registerForm">
+                <div>
+                    <label htmlFor="emailRegister">Email</label>
+                    <input
+                        type="text"
+                        name="email"
+                        id="emailRegister"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="nameRegister">Nombre</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="nameRegister"
+                        maxLength={30}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="passwordRegister">Contraseña</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordRegister"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="repasswordRegister">
+                        Repetir contraseña
+                    </label>
+                    <input
+                        type="password"
+                        name="repassword"
+                        id="repasswordRegister"
+                        onChange={(e) => setRePassword(e.target.value)}
+                    />
+                </div>
                 <button type="submit">Registrarse</button>
             </form>
             <section className="errors">
                 {errorMessage &&
                     errorMessage.map((error, index) => (
-                        <p key={index}>{error}</p>
+                        <p key={index} className="error">{error}</p>
                     ))}
                 {submitError &&
                     submitError.map((error, index) => (
-                        <p key={index}>{error}</p>
+                        <p className="error" key={index}>{error}</p>
                     ))}
-                {firebaseError && <p>{firebaseError}</p>}
+                {firebaseError && <p className="errorFirebase error">{firebaseError}</p>}
             </section>
         </section>
     );
