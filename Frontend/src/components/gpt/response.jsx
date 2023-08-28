@@ -106,7 +106,7 @@ recomendacion
 ___
 No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero que te haya sido útil. ¡Sigue cuidando tu salud!"
 .`;
-            console.log(message);
+           
             // Loading
             setLoading(true);
             // fetch
@@ -121,7 +121,6 @@ No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero
                     body: JSON.stringify({email: usuario.email})
                 }
             );
-            console.log(response);
             let data = await response.json();
             console.log(data);
             setResponse(data);
@@ -133,10 +132,10 @@ No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero
     return (
         <section>
             {isData && (    
-            <form onSubmit={getMessage}>
+            <form onSubmit={getMessage} className="gptForm">
                 <p>{response}</p>
                 <button type="submit" hidden={loading}>
-                    Submit
+                    Analizar Datos
                 </button>
                 {loading ? (
                     <picture>

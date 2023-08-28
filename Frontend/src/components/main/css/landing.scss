@@ -40,7 +40,7 @@
         flex-direction: column;
         gap: 1rem;
     }
-    & .bottomLogo {   
+    & .bottomLogo {
         transition: 100ms;
         width: 50%;
         max-width: 350px;
@@ -50,6 +50,7 @@
             animation-duration: 1.5s;
             border-radius:100%;
             transition: 1s;
+            width: 100%;
         }
         & :hover{
             cursor: pointer; 

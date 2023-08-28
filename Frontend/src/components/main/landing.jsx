@@ -24,17 +24,17 @@ const Landing = () => {
             <article className='info'>
                 <h3>
                     ¿Te has preguntado alguna vez si has comido demasiado
-                    durante el dia?
+                    durante el día?
                 </h3>
                 <p>
-                    Muchas veces nos preguntamos a lo largo del dia si hemos
-                    comido demasiado y no tenemos claro cual seria la cantidad
-                    idonea a consumir.
+                    Muchas veces nos preguntamos a lo largo del día si hemos
+                    comido demasiado y no tenemos claro cual sería la cantidad
+                    idónea a consumir.
                 </p>
                 <p>
-                    Con esta web podras saber el valor nutricional de tu ingesta diaria y saber en porcentaje cuanto has consumido de cada uno sobre los valores recomendados.  
+                    Con esta web podras saber el valor nutricional de tu ingesta diaria.  
                 </p>
-                <p>Tambien contamos con un analisis avanzado basado en inteligencia artificial que indica la calidad de la ingesta y en que se puede mejorar.</p>
+                <p>También contamos con un análisis avanzado basado en inteligencia artificial que indica la calidad de la ingesta y en qué se puede mejorar.</p>
             </article>
             <picture className="bottomLogo" onClick={()=> {window.location.href = 'https://fullstack.cloudconsu.com/RampUP/web_personal/pages/never.html'}}>
                 <img

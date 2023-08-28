@@ -1,6 +1,7 @@
+//scss
+import "./css/nutValues.scss";
 //React
 import { useEffect, useContext } from "react";
-import "./css/nutValues.scss";
 //Context
 import IsDataContext from "../../context/isData";
 
