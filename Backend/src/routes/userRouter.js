@@ -22,7 +22,7 @@ userRouter.post("/get", authMiddleware, async (req, res) => {
         res.status(400).send(error);
     }
 })
-userRouter.post("/update", async (req, res) => {
+userRouter.post("/update", authMiddleware, async (req, res) => {
     try{
         userController.updateUser(req, res);
     }
@@ -30,7 +30,7 @@ userRouter.post("/update", async (req, res) => {
         res.status(400).send(error);
     }
 })
-userRouter.delete("/delete", async (req, res) => {
+userRouter.delete("/delete", authMiddleware, async (req, res) => {
     try{
         userController.deleteUser(req, res);
     }

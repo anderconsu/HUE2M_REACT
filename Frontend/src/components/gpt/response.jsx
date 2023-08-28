@@ -111,7 +111,15 @@ No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero
             setLoading(true);
             // fetch
             let response = await fetch(
-                `http://localhost:3006/api/gpt/?message=${message}`
+                `http://localhost:3006/api/gpt/?message=${message}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": token,
+                    },
+                    body: JSON.stringify({email: usuario.email})
+                }
             );
             console.log(response);
             let data = await response.json();
