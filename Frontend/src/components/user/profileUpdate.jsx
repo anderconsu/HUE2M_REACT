@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 
 // Context
 import UserContext  from "../../context/userContext";
+import TokenContext from "../../context/token";
 // Array of conitions to check
 const conditionArray = [
     "celiac", "diabetes", "hypertension", "highColestherol", "lactoseintolerant", "nutA", "eggA", "sojaA"
@@ -12,6 +13,7 @@ const conditionArray = [
 const ProfileUpdate = () => {
     const navigate = useNavigate();
     const {user} = useContext(UserContext);
+    const {token} = useContext(TokenContext);
     const [error, setError] = useState("");
     const [userData, setUserData] = useState({});
     const getUser = async () => {
@@ -22,6 +24,7 @@ const ProfileUpdate = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": token,
                     },
                     body: JSON.stringify({ email: usuario.email }),
                 });

@@ -4,12 +4,14 @@ import NutValues from "./nutValues";
 // Context
 import UserContext from "../../context/userContext";
 import { Link } from "react-router-dom";
+import TokenContext from "../../context/token";
 
 const FormIngredients = () => {
     // * Pre function variables
     const [blockSubmit, setBlockSubmit] = useState(false);
     const [error, setError] = useState("");
     const { user } = useContext(UserContext);
+    const {token} = useContext(TokenContext);
     const [dbUser, setDbUser] = useState(false);
     
     // * Functions
@@ -127,7 +129,8 @@ const FormIngredients = () => {
             const response = await fetch("http://localhost:3006/user/get", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token,
             },
             body: JSON.stringify({email: usuario.email})   
             });

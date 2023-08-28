@@ -14,7 +14,7 @@ userRouter.post("/create", async (req, res) => {
         res.status(400).send(error);
     }
 })
-userRouter.post("/get", async (req, res) => {
+userRouter.post("/get", authMiddleware, async (req, res) => {
     try{
         userController.getUser(req, res);
     }

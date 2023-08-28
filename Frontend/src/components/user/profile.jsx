@@ -32,7 +32,7 @@ const Profile = () => {
                     setUserData(data);
                 }else if (response.statusText === "Not Found") {
                     setUserData("ND");
-                } else if (response.statusText === "Unauthorized") {
+                } else if (response.statusText === "Unauthorized" || response.status === "401") {
                     setUserData("error");
                 }
                 else {

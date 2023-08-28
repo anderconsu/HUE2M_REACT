@@ -3,12 +3,14 @@ import { useState, useContext } from "react";
 //Context
 import UserContext from "../../context/userContext";
 import IsDataContext from "../../context/isData";
+import TokenContext from "../../context/token";
 
 // Diccionario de condiciones
 import conditDict from "../user/conditDict";
 
 const GptForm = () => {
     const { user } = useContext(UserContext); 
+    const {token} = useContext(TokenContext);
     const {isData, setIsData} = useContext(IsDataContext);
     const [response, setResponse] = useState("");
     const [loading, setLoading] = useState(false);
@@ -38,7 +40,8 @@ const GptForm = () => {
                 const response = await fetch("http://localhost:3006/user/get", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": token,
                 },
                 body: JSON.stringify({email: usuario.email})   
                 });
