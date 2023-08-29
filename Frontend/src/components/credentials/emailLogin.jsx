@@ -54,7 +54,7 @@ const EmailLogin = () => {
 
     return (
         <section className="register">
-            <h3>Logeate con tu email</h3>
+            <h3>Inicia sesión con tu email</h3>
             <form onSubmit={handleSubmit} className="loginForm">
                 <label htmlFor="emailLogin">Email</label>
                 <input
