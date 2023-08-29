@@ -19,8 +19,8 @@ apiRouter.get("/", (req, res) => {
 
 apiRouter.post("/gpt", authMiddleware, async (req, res) => {
     console.log("Gpt nutritional analisis started");
-    if (req.query.message){
-    let message = req.query.message;
+    if (req.body.message){
+    let message = req.body.message;
     console.log("mensaje recibido: ", message);
     let response = await GptCall(message);
     res.json(response);
@@ -61,6 +61,7 @@ apiRouter.get("/translategpt", async (req, res) => {
 });
 
 apiRouter.get("/edamamdata", async (req, res) => {
+    console.log("edamam data retrieval started");
     if (req.query.message){
     let message = req.query.message;
     console.log("ingredientes recividos: ", message);

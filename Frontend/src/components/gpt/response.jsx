@@ -1,3 +1,6 @@
+//scss
+import "./scss/response.scss";
+
 //React
 import { useState, useContext } from "react";
 //Context
@@ -36,7 +39,6 @@ const GptForm = () => {
             
             let userData = {}
             try {
-                console.log(user.accessToken);
                 const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/get`, {
                 method: "POST",
                 headers: {
@@ -106,23 +108,26 @@ recomendacion
 ___
 No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero que te haya sido útil. ¡Sigue cuidando tu salud!"
 .`;
-           
+
             // Loading
             setLoading(true);
             // fetch
+            console.log("gpt call started in front");
             let response = await fetch(
-                `${process.env.REACT_APP_BACKEND_URL}/gpt/?message=${message}`,
+                `${process.env.REACT_APP_BACKEND_URL}/api/gpt/`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": token,
                     },
-                    body: JSON.stringify({email: usuario.email})
+                    body: JSON.stringify({
+                        email: usuario.email,
+                        message: message,
+                    })
                 }
             );
             let data = await response.json();
-            console.log(data);
             setResponse(data);
             setLoading(false);
         }else{
