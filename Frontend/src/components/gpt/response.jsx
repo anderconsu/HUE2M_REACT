@@ -1,6 +1,3 @@
-//scss
-import "./scss/response.scss";
-
 //React
 import { useState, useContext } from "react";
 //Context
