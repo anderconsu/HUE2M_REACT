@@ -1,3 +1,6 @@
+// Scss
+import "./scss/profileCreate.scss";
+
 // React
 import { useContext, useState } from "react";
 import {useNavigate} from "react-router-dom"
@@ -59,45 +62,74 @@ const ProfileCreate = () => {
     return (
         <section className="profileCreation">
             <h3>Crea tu perfil</h3>
+            <div className="description">
             <p>Necesitamos un poco de información para poder ofrecer mejores recomendaciones nutricionales, todas las opciones son opcionales, pero mejoran los resultados.</p>
-            <p> *Si no deseas introducir ningún dato, selecciona "Confirmar datos"sin rellenar ningún campo*</p>
+            <p className="important"> *Si no deseas introducir ningún dato, selecciona "Confirmar datos"sin rellenar ningún campo*</p>
+            </div>
             <form action="POST" onSubmit={handleSubmit}>
+                <div>
+
                 <label htmlFor="birthday">Fecha de nacimiento</label>
                 <input type="date" id="birthday"/>
+                </div>
+                <div>
+
                 <label htmlFor="height">Altura en cm</label>
                 <input type="number" id="height" min={1} max={250}/>
+                </div>
+                <div>
+
                 <label htmlFor="weight">Peso en Kg</label>
                 <input type="number" id="weight" min={1} max={350}/>
+                </div>
+                
                 <label htmlFor="sex">Sexo biológico</label>
                 <select id="sex">
                     <option value="0">Prefiero no especificar</option>
                     <option value="M">Macho</option>
                     <option value="H">Hembra</option>
                 </select>
+                
                 <label htmlFor="foodPreference">Preferencias de dieta</label>
                 <select id="foodPreference">
                     <option value="0">Omnívoro</option>
                     <option value="Vege">Vegetariano</option>
                     <option value="Vega">Vegano</option>
                 </select>
+                    <p id="conditionHeader">Condiciones alimenticias</p>
                 <article className="conditions">
-                    <p>Condiciones alimenticias</p>
+                    <div>
                     <label htmlFor="celiac">Celiaquia</label>
                     <input type="checkbox" value={"celiac"} id={"celiac"} />
+                    </div>
+                    <div>
                     <label htmlFor="diabetes">Diabetes</label>
                     <input type="checkbox" value={"diabetes"} id={"diabetes"} />
+                    </div>
+                    <div>
                     <label htmlFor="hypertension">Hipertensión</label>
                     <input type="checkbox" value={"hypertension"} id={"hypertension"} />
+                    </div>
+                    <div>
                     <label htmlFor="highColestherol">Colesterol alto</label>
                     <input type="checkbox" value={"highColestherol"} id={"highColestherol"} />
+                    </div>
+                    <div>
                     <label htmlFor="lactoseintolerant"> Intolerancia al lactosa</label>
                     <input type="checkbox" value={"lactoseintolerant"} id={"lactoseintolerant"} />
+                    </div>
+                    <div>
                     <label htmlFor="nutA">Alergia a los frutos secos</label>
                     <input type="checkbox" value={"nutA"} id={"nutA"} />
+                    </div>
+                    <div>
                     <label htmlFor="eggA">Alergia a los huevos</label>
                     <input type="checkbox" value={"eggA"} id={"eggA"} />
+                    </div>
+                    <div>
                     <label htmlFor="sojaA">Alergia a la soja</label>
                     <input type="checkbox" value={"sojaA"} id={"sojaA"} />
+                    </div>
                 </article>
                 <button type="submit">Confirmar datos</button>
             </form>

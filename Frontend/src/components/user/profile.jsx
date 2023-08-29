@@ -1,3 +1,6 @@
+// Scss
+import "./scss/profile.scss";
+
 // React
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -61,7 +64,7 @@ const Profile = () => {
         return (
             <section className="profile">
                 <h3>Perfil</h3>
-                <article>
+                <article className="profileInfo">
                     <p>Email: {userData.email}</p>
                     <p>Nombre: {user.displayName}</p>
                     <p>Fecha de nacimiento: {userData.birthday}</p>
@@ -85,19 +88,20 @@ const Profile = () => {
                                 : "No especificado"
                             : "No especificado"}
                     </p>
-                    <article>
-                        
-                    </article>
+                    <section className="conditions">
                     <p>Condiciones: {" "} {userData.condition.length === 0 && "No hay condiciones"}</p>
                     {userData.condition.length > 0 && (
-                    <ul>
-                        {userData.condition.map((condition, index) => (
-                            <li key={index}>{conditDict[condition]}</li>
-                        ))}
-                    </ul>                     
+                        <ul className="conditionList">
+                            {userData.condition.map((condition, index) => (
+                                <li key={index}>{conditDict[condition]}</li>
+                                ))}
+                        </ul>                     
                     )}
+                    </section>
+                    <section className="actions">
                     <Link to="/profile/update">Editar perfil</Link>
                     <Link to="/profile/delete">Eliminar perfil</Link>
+                    </section>
                 </article>
             </section>  
         )
