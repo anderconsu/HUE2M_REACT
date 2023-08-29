@@ -1,5 +1,5 @@
 import User from "../../models/user.js";
-
+import deleteFirebaseUser from "./firebaseController.js";
 const addUser = async (req, res) => {
     let userInfo = req.body;
     let dbUser = await User.findOne({ email: userInfo.email });
@@ -70,7 +70,17 @@ const deleteUser = async (req, res) => {
         if (!deleteUser) {
             res.status(404).send();
         }else{
-            res.status(200).send();
+            try {
+            let response = await deleteFirebaseUser(req, res);
+            if (response === true){
+                res.status(200).send();
+            }else{
+                res.status(400).send({error: response.error});
+            }
+        } catch (error) {
+            console.log("error en getUser", error);
+            res.status(400).send();
+        }
         }
     } catch (error) {
         console.log("error en deleteUser", error);

@@ -21,9 +21,9 @@ const ProfileDelete = () => {
                 },
                 body: JSON.stringify({ email: user.email }),
             });
-            console.log(response);
+            console.log("respuesta deleteProfile :", response);
             if (response.ok) {
-                navigate("/");
+                window.location.replace('http://localhost:3000/');
             }else{
                 setError("No se ha podido eliminar tu cuenta");
             }
