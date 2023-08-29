@@ -96,7 +96,7 @@ const EmailRegister = () => {
     }, [email, password, repassword]);
     return (
         <section className="register">
-            <h3>Registra tu email</h3>
+            <h3>Regístrate con tu email</h3>
             <form onSubmit={handleSubmit} className="registerForm">
                 <div>
                     <label htmlFor="emailRegister">Email</label>
