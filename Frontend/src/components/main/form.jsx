@@ -36,7 +36,7 @@ const FormIngredients = () => {
         // The value of ingrediente is translated and an alternative object is created and pushed to the alternative array to be compatible with edamam
         try {
             let ingEnglish = await fetch(
-                `http://localhost:3006/api/translate/?message=${obj.ingrediente}`
+                `${process.env.REACT_APP_BACKEND_URL}/api/translate/?message=${obj.ingrediente}`
             );
             console.log("ingEnglish ", ingEnglish);
             if (ingEnglish.status === 200) {
@@ -54,7 +54,7 @@ const FormIngredients = () => {
                 console.log("gpt translation selected");
                 // If the translation is not successful an entire object is passed to gpt to translate
                 ingEnglish = await fetch(
-                    `http://localhost:3006/api/translategpt/?message=${obj.ingrediente}`
+                    `${process.env.REACT_APP_BACKEND_URL}/api/translategpt/?message=${obj.ingrediente}`
                 );
                 let data = await ingEnglish.text();
                 ingEnglish = {
@@ -78,7 +78,7 @@ const FormIngredients = () => {
     // Get data from edamam
     const getEdamamData = async () => {
         let ingredients = [];
-        const url = new URL(`http://localhost:3006/api/edamamdata/`);
+        const url = new URL(`${process.env.REACT_APP_BACKEND_URL}/api/edamamdata/`);
         ingListEnglish.forEach((ing) => {
             ingredients.push(
                 `${ing.cantidad} ${ing.unidad} ${ing.ingrediente}`
@@ -128,7 +128,7 @@ const FormIngredients = () => {
     const getUserData = async () => {
         let usuario = user;
         try {
-            const response = await fetch("http://localhost:3006/user/get", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/get`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -10,7 +10,7 @@ const GptForm = () => {
         console.log(message);
         setLoading(true);
         let response = await fetch(
-            `http://localhost:3006/api/gpt/?message=${message}`
+            `${process.env.REACT_APP_BACKEND_URL}/api/gpt/?message=${message}`
         );
         console.log(response);
         let data = await response.json();

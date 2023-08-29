@@ -37,7 +37,7 @@ const GptForm = () => {
             let userData = {}
             try {
                 console.log(user.accessToken);
-                const response = await fetch("http://localhost:3006/user/get", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/get`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -111,7 +111,7 @@ No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero
             setLoading(true);
             // fetch
             let response = await fetch(
-                `http://localhost:3006/api/gpt/?message=${message}`,
+                `${process.env.REACT_APP_BACKEND_URL}/gpt/?message=${message}`,
                 {
                     method: "POST",
                     headers: {

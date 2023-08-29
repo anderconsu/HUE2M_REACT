@@ -23,7 +23,7 @@ const ProfileUpdate = () => {
         let usuario = user;
         if (usuario.email) {
             try {
-                const response = await fetch("http://localhost:3006/user/get", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/get`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const ProfileUpdate = () => {
 
         }
         console.log(userData);
-        const response = await fetch("http://localhost:3006/user/update", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/update`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
