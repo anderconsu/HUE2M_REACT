@@ -228,7 +228,7 @@ const FormIngredients = () => {
                     </button>
                 </form>
                 {edamamData === 555 ? (
-                    <p>Hay un error al cotejar uno o varios ingredientes.</p>
+                    <p>Hay un error al cotejar uno o varios ingredientes. Puede que alguno de los ingredientes no sea cotejable, por favor, compruebalo eliminando los ingredientes</p>
                 ) : null}
                 <ul>
                     {ingList.map((ing, index) => (

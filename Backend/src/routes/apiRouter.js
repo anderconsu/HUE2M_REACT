@@ -60,7 +60,7 @@ apiRouter.get("/translategpt", async (req, res) => {
     }
 });
 
-apiRouter.get("/edamamdata", authMiddleware , async (req, res) => {
+apiRouter.get("/edamamdata", async (req, res) => {
     if (req.query.message){
     let message = req.query.message;
     console.log("ingredientes recividos: ", message);
