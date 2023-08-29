@@ -9,6 +9,7 @@ let nutDict = {
     "CHOCDF.net": "Carboidratos (netos)",
     FIBTG: "Fibra",
     SUGAR: "Azúcares",
+    "SUGAR.added": "Azúcares añadidos",
     PROCNT: "Proteinas",
     NA: "Sodio",
     CA: "Calcio",
