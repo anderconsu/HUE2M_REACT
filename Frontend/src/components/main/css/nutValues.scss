@@ -1,12 +1,26 @@
-.nutValues {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
-    list-style: none;
-    & li {
-        padding: 0.5rem;
+@use "../../css/generalVariables.scss" as var;
+
+.totalNutrients {
+    margin: auto;
+    & p {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 1rem;
+    }
+    & .nutValues {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        gap: 1rem;
+        list-style: none;
+        & li {
+            border: 1px solid var.$pri-color;
+            padding: 0.5rem;
+        }
     }
 }
 .gptForm {

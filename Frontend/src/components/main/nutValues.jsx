@@ -27,6 +27,8 @@ const NutValues = ({ edamamData }) => {
     }, [edamamData]);
 
     return (
+        <section className="totalNutrients">
+            <p>Los nutrientes estimados que contiene tu ingesta son los siguientes</p>
         <ul className="nutValues">
             {Object.entries(edamamData.totalNutrients).map(([key, value]) => {
                 if (value.quantity > 0) {
@@ -40,6 +42,7 @@ const NutValues = ({ edamamData }) => {
                 return null;
             })}
         </ul>
+        </section>
     );
 };
 
