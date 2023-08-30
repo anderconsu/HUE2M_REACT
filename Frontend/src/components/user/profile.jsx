@@ -59,7 +59,7 @@ const Profile = () => {
         return <ProfileCreate/>
     }else {
         if (userData === null) {
-            return <p>Cargando...</p>;
+            return <p className="loading">Cargando...</p>;
         }
         return (
             <section className="profile">

@@ -181,7 +181,7 @@ const FormIngredients = () => {
                         <Link to="/profile">Completar perfil</Link>
                     </article>
                 ) : (
-                    <p>Cargando...</p>
+                    null
                 )}
             </section>
         );
