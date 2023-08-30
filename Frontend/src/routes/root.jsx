@@ -30,7 +30,7 @@ const Root = () => {
                 if (user !== null) {
                 console.log("usuario general :", user);
                 setUser(user);
-                user.getIdToken(true).then((idToken) => {
+                user.getIdToken().then((idToken) => {
                     setToken(idToken);
                 });
                 setIsLoggedIn(true);
