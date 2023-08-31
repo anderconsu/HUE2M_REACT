@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 router.get("/check", (req, res) => {
     console.log("check");
-    res.status(200).send("hola");
+    res.status(200).send();
 });
 router.use("/user", userRouter);
 

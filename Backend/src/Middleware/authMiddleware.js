@@ -3,7 +3,7 @@ import { getAuth } from "firebase-admin/auth";
 
 const authMiddleware = async (req, res, next) => {
     try {
-        console.log("auth entered");
+        console.log("auth entered for " + req.body.email);
         const idToken = req.headers.authorization;
         let uid = ""
 
@@ -23,17 +23,17 @@ const authMiddleware = async (req, res, next) => {
             .then((userRecord) => {
                 let user = userRecord.toJSON()
               // See the UserRecord reference doc for the contents of userRecord.
-                console.log(`Successfully fetched user data`);
                 if (user.email === req.body.email) {
                     console.log("Authorized email");
                     next();
                 }else{
+                    console.log("! Email and token mismatch");
                     res.status(401).json({ error: "Unauthorized request" });
                 }
                 
             })
             .catch((error) => {
-                console.log('Error fetching user data:', error);
+                console.log('! Error fetching user data:', error);
             });
         
     } catch (error) {

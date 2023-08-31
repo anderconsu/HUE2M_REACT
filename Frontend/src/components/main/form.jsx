@@ -148,18 +148,19 @@ const FormIngredients = () => {
             });
             if (!response.ok) {
                 console.log(response);
-                if (response.status === 404) {
+                if (response.status === 404 || response.status === 401) {
                     setError(
                         "No hay datos de tu usuario. Por favor completa el perfil primero."
-                    );
-                    return;
-                }
+                        );
+                        return;
+                    }else{
+                        setDbUser(true);
+                    }   
             }
         } catch (error) {
             console.log("error en getUser", error);
             return;
         }
-        setDbUser(true);
     };
 
     //* Variable declaration
