@@ -43,6 +43,13 @@ const EmailLogin = () => {
                         "El usuario o la contraseña no son correctos"
                     );
                 }
+
+                if (errorCode === "auth/invalid-email")
+                {
+                    setFirebaseError(
+                        "Por favor, intruduce un email válido."
+                    )
+                }
             });
     };
 

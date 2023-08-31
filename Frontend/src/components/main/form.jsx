@@ -25,6 +25,9 @@ const FormIngredients = () => {
         e.preventDefault();
         setBlockSubmit(true);
         setInputValue("");
+        if(e.target.ingredientes.value === "" || !e.target.ingredientes.value){
+            return
+        }
         const lista = [...ingList];
         const listaEnglish = [...ingListEnglish];
 
@@ -271,7 +274,9 @@ const FormIngredients = () => {
                     className="calcular"
                     type="button"
                     onClick={getEdamamData}
-                    disabled={ingListEnglish.lenght === 0 ? true : false}
+                    disabled={
+                        blockSubmit === true || ingListEnglish.length === 0
+                    }
                 >
                     Calcular
                 </button>
