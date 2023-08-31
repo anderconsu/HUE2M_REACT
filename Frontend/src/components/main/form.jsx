@@ -13,6 +13,7 @@ const FormIngredients = () => {
     // * Pre function variables
     const [blockSubmit, setBlockSubmit] = useState(false);
     const [error, setError] = useState("");
+    const [edamamError, setEdamamError] = useState("");
     const { user } = useContext(UserContext);
     const {token} = useContext(TokenContext);
     const [dbUser, setDbUser] = useState(false);
@@ -82,6 +83,7 @@ const FormIngredients = () => {
 
     // Get data from edamam
     const getEdamamData = async () => {
+        setEdamamError("Cargando...");
         let ingredients = [];
         const url = new URL(`${process.env.REACT_APP_BACKEND_URL}/api/edamamdata/`);
         ingListEnglish.forEach((ing) => {
@@ -94,6 +96,9 @@ const FormIngredients = () => {
         try {
             let response = await fetch(url);
             let data = await response.json();
+            if (data === 555){
+                setEdamamError("555");
+            }
             setEdamamData(data);
             console.log(data);
             console.log(data.totalNutrients);
@@ -235,7 +240,11 @@ const FormIngredients = () => {
                         Añadir
                     </button>
                 </form>
-                {edamamData === 555 ? (
+                {edamamError === "Cargando..." ? (
+                    <p>Cargando...</p>
+                ) : null}
+
+                {edamamError === "555" ? (
                     <p>Hay un error al cotejar uno o varios ingredientes. Puede que alguno de los ingredientes no sea cotejable, por favor, compruebalo eliminando los ingredientes</p>
                 ) : null}
                 <ul className="ingList">

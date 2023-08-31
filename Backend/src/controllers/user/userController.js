@@ -30,7 +30,8 @@ const getUser = async (req, res) => {
         console.log("email a buscar: ", req.body.email);
         let user = await User.findOne({ email: req.body.email });
         if (!user) {
-            res.status(404).send();
+            console.log("usuario no encontrado");
+            res.status(404).send("Not Found");
         }else{
             console.log("usuario encontrado");
             res.status(200).json(user);

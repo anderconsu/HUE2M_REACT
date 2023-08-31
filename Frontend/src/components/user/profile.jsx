@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import ProfileCreate from "./profilecreate";
 
-
+// TODO: button feedback
 // Context
 import UserContext from "../../context/userContext";
 import TokenContext from "../../context/token";
@@ -30,10 +30,12 @@ const Profile = () => {
                     },
                     body: JSON.stringify({ email: usuario.email }),
                 });
+                console.log("respuesta getUser (profile.jsx)", response);
+                console.log("status getUser (profile.jsx)", response.statusText);
                 if (response.ok) {
                     let data = await response.json();
                     setUserData(data);
-                }else if (response.statusText === "Not Found") {
+                }else if (response.status === 404) {
                     setUserData("ND");
                 } else if (response.statusText === "Unauthorized" || response.status === "401") {
                     setUserData("error");
