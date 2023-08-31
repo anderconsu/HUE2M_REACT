@@ -16,12 +16,14 @@ const FormIngredients = () => {
     const { user } = useContext(UserContext);
     const {token} = useContext(TokenContext);
     const [dbUser, setDbUser] = useState(false);
+    const [inputValue, setInputValue] = useState("");
 
     // * Functions
     // Add form ingredients to lists
     const addToList = async (e) => {
         e.preventDefault();
         setBlockSubmit(true);
+        setInputValue("");
         const lista = [...ingList];
         const listaEnglish = [...ingListEnglish];
 
@@ -74,6 +76,9 @@ const FormIngredients = () => {
         }
         setBlockSubmit(false);
     };
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    }
 
     // Get data from edamam
     const getEdamamData = async () => {
@@ -158,6 +163,7 @@ const FormIngredients = () => {
         getEnglishListFromLocalStorage
     );
     const [edamamData, setEdamamData] = useState({});
+    
 
     //* UseEffects
     useEffect(() => {
@@ -222,6 +228,8 @@ const FormIngredients = () => {
                         name="ingredientes"
                         id="ingredientes"
                         placeholder="Ingrediente"
+                        onChange={handleInputChange}
+                        value={inputValue}
                     />
                     <button type="submit" disabled={blockSubmit}>
                         Añadir
