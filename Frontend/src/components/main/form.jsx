@@ -156,10 +156,10 @@ const FormIngredients = () => {
                         "No hay datos de tu usuario. Por favor completa el perfil primero."
                         );
                         return;
-                    }else{
-                        setDbUser(true);
-                    }   
-            }
+                } 
+            }else{
+                setDbUser(true);
+        }  
         } catch (error) {
             console.log("error en getUser", error);
             return;
