@@ -12,3 +12,6 @@ Frontend/.env
 
 Backend/src/config/
 Backend/dbFiles
+
+#database
+data
