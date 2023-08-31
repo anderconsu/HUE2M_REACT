@@ -26,6 +26,7 @@ const FormIngredients = () => {
         setBlockSubmit(true);
         setInputValue("");
         if(e.target.ingredientes.value === "" || !e.target.ingredientes.value){
+            setBlockSubmit(false);
             return
         }
         const lista = [...ingList];
