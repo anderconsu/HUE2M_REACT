@@ -1,0 +1,13 @@
+.profileDelete {
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    & button {
+        padding: 0.2rem;
+        border-radius: 0.2rem;
+    }
+}
