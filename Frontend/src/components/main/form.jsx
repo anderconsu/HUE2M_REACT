@@ -102,8 +102,10 @@ const FormIngredients = () => {
             let data = await response.json();
             if (data === 555){
                 setEdamamError("555");
+                return
             }
             setEdamamData(data);
+            setEdamamError("");
             console.log(data);
             console.log(data.totalNutrients);
         } catch (error) {
