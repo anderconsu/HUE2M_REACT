@@ -63,8 +63,11 @@ const ProfileCreate = () => {
         <section className="profileCreation">
             <h3>Crea tu perfil</h3>
             <div className="description">
-            <p>Necesitamos un poco de información para poder ofrecer mejores recomendaciones nutricionales, todas las opciones son opcionales, pero mejoran los resultados.</p>
-            <p className="important"> *Si no deseas introducir ningún dato, selecciona "Confirmar datos"sin rellenar ningún campo*</p>
+            <p className="intro">Necesitamos un poco de información para poder ofrecer mejores recomendaciones nutricionales, todas las opciones son opcionales, pero mejoran los resultados.</p>
+            <p className="important"> * Si no deseas introducir ningún dato, selecciona "Confirmar datos" sin rellenar ningún campo *</p>
+            <p className="important"> *Los datos introducidos a continuación se guardarán en una base de datos únicamente para proporcionar un análisis adecuado *</p>
+            <p className="important"> * Si haces click en "Confirmar datos" se da por hecho que aceptas que se guarden tus datos *</p>
+            <p className="important"> * Puedes eliminarlos en cualquier momento borrando el perfil *</p>
             </div>
             <form action="POST" onSubmit={handleSubmit}>
                 <div>
