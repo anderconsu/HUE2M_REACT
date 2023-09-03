@@ -33,6 +33,13 @@
             width: 50%;
         }
     }
+    & .buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
     & .ingList {
         display: flex;
         flex-direction: column;

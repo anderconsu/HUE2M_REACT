@@ -273,6 +273,7 @@ const FormIngredients = () => {
                         </li>
                     ))}
                 </ul>
+                <section className="buttons">
                 <button
                     className="calcular"
                     type="button"
@@ -280,9 +281,15 @@ const FormIngredients = () => {
                     disabled={
                         blockSubmit === true || ingListEnglish.length === 0
                     }
-                >
+                    >
                     Calcular
                 </button>
+                <button className="deleteList" disabled={
+                    blockSubmit === true || ingList.length === 0
+                } onClick={() => {setIngList([]); setIngListEnglish([]);} }>
+                    Borrar Todo
+                </button>
+                </section>
                 
                 {edamamData?.totalNutrients && (
                     <NutValues edamamData={edamamData}></NutValues>
