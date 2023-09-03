@@ -31,8 +31,6 @@ const Header = () => {
             signOut(auth).then (
                 setIsLoggedIn(false)
                 ).then (
-                    console.log("user loged out")
-                ).then (
                     Navigate("/")
                 );
         } catch (error) {

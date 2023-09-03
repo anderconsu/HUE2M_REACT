@@ -45,7 +45,6 @@ const FormIngredients = () => {
             let ingEnglish = await fetch(
                 `${process.env.REACT_APP_BACKEND_URL}/api/translate/?message=${obj.ingrediente}`
             );
-            console.log("ingEnglish ", ingEnglish);
             if (ingEnglish.status === 200) {
                 // If the translation is successful with the google translation in the backend
                 let ingValue = await ingEnglish.text();
@@ -58,7 +57,6 @@ const FormIngredients = () => {
                             : e.target.unidad.value,
                 };
             } else {
-                console.log("gpt translation selected");
                 // If the translation is not successful an entire object is passed to gpt to translate
                 ingEnglish = await fetch(
                     `${process.env.REACT_APP_BACKEND_URL}/api/translategpt/?message=${obj.ingrediente}`
@@ -77,7 +75,7 @@ const FormIngredients = () => {
             listaEnglish.push(ingEnglish);
             setIngListEnglish(listaEnglish);
         } catch (error) {
-            console.log(error);
+            console.log("addToList error: ", error);
         }
         setBlockSubmit(false);
     };
@@ -96,7 +94,6 @@ const FormIngredients = () => {
             );
         });
         url.searchParams.set("message", ingredients);
-        console.log(ingredients);
         try {
             let response = await fetch(url);
             let data = await response.json();
@@ -106,8 +103,6 @@ const FormIngredients = () => {
             }
             setEdamamData(data);
             setEdamamError("");
-            console.log(data);
-            console.log(data.totalNutrients);
         } catch (error) {
             console.log("getEdamamData error: ", error);
         }
@@ -153,7 +148,6 @@ const FormIngredients = () => {
             body: JSON.stringify({email: usuario.email})   
             });
             if (!response.ok) {
-                console.log(response);
                 if (response.status === 404 || response.status === 401) {
                     setError(
                         "No hay datos de tu usuario. Por favor completa el perfil primero."

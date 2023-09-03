@@ -28,7 +28,6 @@ const Root = () => {
         auth.onAuthStateChanged((user) => {
             try {
                 if (user !== null) {
-                console.log("usuario general :", user);
                 setUser(user);
                 user.getIdToken().then((idToken) => {
                     setToken(idToken);

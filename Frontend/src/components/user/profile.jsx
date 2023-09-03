@@ -30,8 +30,6 @@ const Profile = () => {
                     },
                     body: JSON.stringify({ email: usuario.email }),
                 });
-                console.log("respuesta getUser (profile.jsx)", response);
-                console.log("status getUser (profile.jsx)", response.statusText);
                 if (response.ok) {
                     let data = await response.json();
                     setUserData(data);

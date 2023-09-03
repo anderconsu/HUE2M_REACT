@@ -7,14 +7,11 @@ const GptForm = () => {
 
     const getMessage = async (e) => {
         e.preventDefault();
-        console.log(message);
         setLoading(true);
         let response = await fetch(
             `${process.env.REACT_APP_BACKEND_URL}/api/gpt/?message=${message}`
         );
-        console.log(response);
         let data = await response.json();
-        console.log(data);
         setResponse(data);
         setLoading(false);
     };

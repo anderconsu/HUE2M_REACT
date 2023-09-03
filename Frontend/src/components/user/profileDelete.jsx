@@ -24,7 +24,6 @@ const ProfileDelete = () => {
                 },
                 body: JSON.stringify({ email: user.email }),
             });
-            console.log("respuesta deleteProfile :", response);
             if (response.ok) {
                 localStorage.clear();
                 window.location.replace(`${process.env.REACT_APP_FRONTEND_URL}`);

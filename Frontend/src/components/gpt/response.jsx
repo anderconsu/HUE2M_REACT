@@ -45,7 +45,6 @@ const GptForm = () => {
                 body: JSON.stringify({email: usuario.email})   
                 });
                 if (!response.ok) {
-                    console.log(response);
                     if (response.status === 404) {
                         setError("No hay datos de tu usuario.")
                         return
@@ -109,7 +108,6 @@ No me ofrezcas resolver mas dudas al final. Limitate a despedirte con un "Espero
             // Loading
             setLoading(true);
             // fetch
-            console.log("gpt call started in front");
             let response = await fetch(
                 `${process.env.REACT_APP_BACKEND_URL}/api/gpt/`,
                 {

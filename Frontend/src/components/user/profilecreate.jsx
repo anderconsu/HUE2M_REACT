@@ -42,7 +42,6 @@ const ProfileCreate = () => {
             condition: foodConditions
 
         }
-        console.log(userData);
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create`, {
             method: "POST",
             headers: {

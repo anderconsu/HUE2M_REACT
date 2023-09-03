@@ -33,7 +33,6 @@ const ProfileUpdate = () => {
                 });
                 if (response.ok) {
                     let data = await response.json();
-                    console.log("dbuser:", data);
                     setUserData(data);
                 }else if (response.statusText === "Not Found") {
                     navigate("/profile");
@@ -42,7 +41,6 @@ const ProfileUpdate = () => {
                     console.log("error en getUser (profile.jsx)", response);
                 }
             } catch (error) {
-                console.log("error en getUser", error);
                 return;
             }
         }
@@ -72,7 +70,6 @@ const ProfileUpdate = () => {
             condition: foodConditions
 
         }
-        console.log(userData);
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/update`, {
             method: "POST",
             headers: {
@@ -84,7 +81,6 @@ const ProfileUpdate = () => {
         if (response.ok) {
             navigate("/profile")
         }else{
-            console.log(response);
             if (response.status === 404) {
                 setError("No se ha encontrado al usuario.")
             } else if (response.status === 400) {

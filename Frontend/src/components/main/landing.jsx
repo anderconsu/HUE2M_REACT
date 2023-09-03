@@ -11,11 +11,8 @@ const Landing = () => {
 
     const backendCheck = async () => {
         try{
-            console.log( "backendCheck", process.env.REACT_APP_BACKEND_URL);
             const response2 = await fetchWithTimeout(`${process.env.REACT_APP_BACKEND_URL}/check`, {}, 2000);
-            console.log(response2);
             if (response2.status === 200) {
-                console.log("backend ok");
                 setBackendRunning(true);
             }
         }catch(e){
@@ -24,7 +21,6 @@ const Landing = () => {
             }
         }
     useEffect(() => {
-        console.log("useEffect");
         backendCheck();
     }, []);
 
