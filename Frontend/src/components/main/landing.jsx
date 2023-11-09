@@ -58,7 +58,7 @@ const Landing = () => {
                         </p>
                         <p>También contamos con un análisis avanzado basado en inteligencia artificial que indica la calidad de la ingesta y en qué se puede mejorar.</p>
                     </article>
-                    <picture className="bottomLogo" onClick={()=> {window.location.href = 'https://fullstack.cloudconsu.com/RampUP/web_personal/assets/never_compressed.mp4'}}>
+                    <picture className="bottomLogo" onClick={()=> {window.location.href = 'https://hue2m.cloudconsu.com/never.mp4'}}>
                         <img
                             src="images/Green_Line_Branch_Organic_Nature_Logo.png"
                             alt="logo"
