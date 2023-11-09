@@ -1,17 +1,21 @@
-#Node modules
+# Node modules
 Backend/node_modules
 Frontend/node_modules
 
-#env
+# Env
 Backend/.env
 Frontend/.env
 .env
 
-#vscode
+# Vscode
 .vscode
 
+# Backend
 Backend/src/config/
 Backend/dbFiles
 
-#database
+# Database
 data
+
+# Build
+Frontend/build

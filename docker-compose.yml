@@ -1,32 +1,42 @@
 version: '3'
 services:
   frontend:
-    build: ./Frontend
+    image: nginx:latest
     container_name: hue2m-front
     restart: always
-    ports:
-      - "${APP_PORT}:3000"
+    networks:
+      - NPM
     volumes:
-      - ./Frontend:/app
-      - /app/node_modules
+      - ./Frontend/build:/usr/share/nginx/html:ro
 
   backend:
     build: ./Backend
     container_name: hue2m-back
     restart: always
-    ports:
-      - "${BACK_PORT}:3006"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - NPM
+      - Hue2mDB
     volumes:
       - ./Backend:/app
       - /app/node_modules
-  
+
   mongo:
     image: mongo:latest
     container_name: hue2m-mongo
     restart: always
+    networks:
+      - Hue2mDB
     # ports:
     #   - "${MONGO_PORT}:27017"
     volumes:
       - ./data:/data/db
-    
-
+networks:
+  NPM:
+    name: NPM
+    external: true
+  Hue2mDB:
+    name: Hue2mDB
+    external: false
