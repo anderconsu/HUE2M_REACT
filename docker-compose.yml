@@ -13,13 +13,16 @@ services:
     build: ./Backend
     container_name: hue2m-back
     restart: always
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     networks:
       - NPM
       - Hue2mDB
     volumes:
       - ./Backend:/app
       - /app/node_modules
-  
+
   mongo:
     image: mongo:latest
     container_name: hue2m-mongo
@@ -37,5 +40,3 @@ networks:
   Hue2mDB:
     name: Hue2mDB
     external: false
-    
-
